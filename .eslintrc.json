@@ -22,6 +22,7 @@
         "react-native"
     ],
     "rules": {
+        "react/prop-types": 0,
         "react/react-in-jsx-scope": 0,
         "react-native/no-unused-styles": 2,
         "react-native/split-platform-components": 2,
