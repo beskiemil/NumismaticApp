@@ -3,10 +3,15 @@ import Colors from "../constants/colors";
 
 const SimpleTextInput = ({
   placeholder,
-  onChangeText,
+  name,
+  onChange,
+  value,
   color,
   label,
   error,
+  inputMode,
+  secureTextEntry,
+  autoComplete,
 }) => {
   return (
     <>
@@ -21,13 +26,17 @@ const SimpleTextInput = ({
         {label && <Text style={styles.label}>{label}</Text>}
         <TextInput
           placeholder={placeholder}
-          onChangeText={onChangeText}
+          value={value}
+          onChangeText={(text) => onChange(name, text)}
           style={[
             styles.input,
             error ? styles.inputError : null,
             { borderColor: color ? color : Colors.primary500 },
           ]}
-          cursorColor={color}
+          cursorColor={color ? color : Colors.primary500}
+          inputMode={inputMode}
+          secureTextEntry={secureTextEntry}
+          autoComplete={autoComplete}
         />
         {error && <Text style={styles.errorMessage}>{error}</Text>}
       </View>
