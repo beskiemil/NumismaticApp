@@ -12,6 +12,7 @@ const Colors = {
   accent: "#2E97A7",
   background: "#EEEEEE",
   white: "#FFFFFF",
+  inActive: "#A4A4A4",
 };
 
 export default Colors;
