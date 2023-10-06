@@ -6,15 +6,21 @@ import Colors from "../constants/colors";
 const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <SimpleTextInput placeholder="e-mail" label={"E-mail"} />
-      <SimpleTextInput placeholder="password" label={"Hasło"} />
-      <Text>Nie masz konta?</Text>
-      <Pressable onPress={() => navigation.navigate("Register")}>
-        <Text style={styles.registerText}>Zarejestruj się</Text>
-      </Pressable>
+      <View>
+        <SimpleTextInput placeholder="e-mail" label={"E-mail"} />
+        <SimpleTextInput placeholder="password" label={"Hasło"} />
+      </View>
+      <View>
+        <Text>Nie masz konta?</Text>
+        <Pressable onPress={() => navigation.navigate("Register")}>
+          <Text style={styles.registerText}>Zarejestruj się</Text>
+        </Pressable>
+      </View>
 
       {/* eslint-disable-next-line react-native/no-raw-text */}
-      <PrimaryButton style={styles.button}>Zaloguj</PrimaryButton>
+      <PrimaryButton style={styles.button} inActive={true}>
+        Zaloguj
+      </PrimaryButton>
     </View>
   );
 };
@@ -24,6 +30,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    gap: 15,
   },
   button: {
     margin: 10,
