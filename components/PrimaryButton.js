@@ -24,7 +24,6 @@ const PrimaryButton = ({ text, style, onPress, color, android_ripple }) => {
 const styles = StyleSheet.create({
   outerContainer: {
     borderRadius: 5,
-    margin: 5,
     overflow: "hidden",
   },
   innerContainer: {
