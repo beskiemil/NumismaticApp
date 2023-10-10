@@ -14,7 +14,7 @@ const LoginScreen = () => {
     setErrorMessage(null);
     login(identifier, password)
       .then((res) => {
-        authContext.authenticate({ jwt: res.data.jwt, user: res.data.user });
+        authContext.authenticate(res.data.jwt, res.data.user);
         setIsLoading(false);
       })
       .catch((err) => {

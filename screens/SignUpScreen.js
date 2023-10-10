@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signup } from "../util/auth";
 import LoadingScreen from "./LoadingScreen";
 import AuthContent from "../components/Authentication/AuthContent";
+import { AuthContext } from "../store/authContext";
 
 const SignUpScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const authContext = useContext(AuthContext);
   const signUpHandler = async ({ username, email, password }) => {
     setIsLoading(true);
     signup(username, email, password)
       .then((res) => {
-        console.log("Dane:");
-        console.log(res.data);
+        authContext.authenticate(res.data.jwt, res.data.user);
         setIsLoading(false);
       })
       .catch((err) => {

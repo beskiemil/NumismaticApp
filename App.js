@@ -5,7 +5,9 @@ import LoginScreen from "./screens/LoginScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import Colors from "./constants/colors";
 import AuthContextProvider, { AuthContext } from "./store/authContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import LoadingScreen from "./screens/LoadingScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,10 +41,30 @@ const Navigation = () => {
     </NavigationContainer>
   );
 };
+
+const Root = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const authContext = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const storedToken = await SecureStore.getItemAsync("jwt");
+      const storedUser = await SecureStore.getItemAsync("user");
+      if (storedToken) {
+        authContext.authenticate(storedToken, JSON.parse(storedUser));
+      }
+      setIsLoading(false);
+    };
+    fetchUserData();
+  }, []);
+
+  if (isLoading) return <LoadingScreen />;
+  return <Navigation />;
+};
 export default function App() {
   return (
     <AuthContextProvider>
-      <Navigation />
+      <Root />
     </AuthContextProvider>
   );
 }
