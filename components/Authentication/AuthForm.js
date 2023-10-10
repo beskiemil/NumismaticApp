@@ -11,7 +11,7 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
     email: "",
     password: "",
     confirmPassword: "",
-    consent: false,
+    agreement: false,
   });
 
   const handleInputChange = (name, text) => {
@@ -74,7 +74,7 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
       {!isLogin && (
         <View style={styles.checkBoxContainer}>
           <Checkbox
-            value={formValues.consent}
+            value={formValues.agreement}
             onValueChange={(value) => handleInputChange("checkBox", value)}
             color={Colors.primary500}
           />

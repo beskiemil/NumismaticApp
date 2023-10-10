@@ -14,7 +14,7 @@ export const AuthContent = ({ isLogin, onAuthenticate }) => {
     else navigation.replace("Login");
   };
   const onSubmit = (credentials) => {
-    let { username, email, password, confirmPassword, consent } = credentials;
+    let { username, email, password, confirmPassword, agreement } = credentials;
     let err = {};
     let valid = true;
 
@@ -29,21 +29,26 @@ export const AuthContent = ({ isLogin, onAuthenticate }) => {
     const passwordsAreEqual = password === confirmPassword;
 
     if (!emailIsValid) {
-      err = { ...err, email: "Email musi zawierać znak '@'" };
+      err = { ...err, email: "Email musi zawierać znak '@'." };
       valid = false;
     }
     if (!passwordIsValid) {
-      err = { ...err, password: "Hasło musi mieć przynajmniej 8 znaków" };
+      err = { ...err, password: "Hasło musi mieć przynajmniej 8 znaków." };
       valid = false;
     }
     if (!isLogin && !usernameIsValid) {
-      err = { ...err, username: "Nazwa użytkownika musi mieć >2 znaki" };
+      err = { ...err, username: "Nazwa użytkownika musi mieć >2 znaki." };
       valid = false;
     }
     if (!isLogin && (!passwordsAreEqual || !passwordIsValid)) {
-      err = { ...err, confirmPassword: "Hasła muszą być takie same" };
+      err = { ...err, confirmPassword: "Hasła muszą być takie same." };
       valid = false;
     }
+    if (!isLogin && !agreement) {
+      err = { ...err, agreement: "Zaakceptuj regulamin." };
+      valid = false;
+    }
+
     setErrors(err);
     if (valid && isLogin) {
       onAuthenticate({ email, password });
