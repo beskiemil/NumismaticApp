@@ -1,11 +1,50 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import SimpleTextInput from "../components/SimpleTextInput";
-import PrimaryButton from "../components/PrimaryButton";
-import Colors from "../constants/colors";
 import AuthContent from "../components/Authentication/AuthContent";
+import { login } from "../util/auth";
+import LoadingScreen from "./LoadingScreen";
+import { useState } from "react";
 
-const LoginScreen = ({ navigation }) => {
-  return <AuthContent isLogin />;
+const LoginScreen = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const loginHandler = async ({ identifier, password }) => {
+    setIsLoading(true);
+    setErrorMessage(null);
+    login(identifier, password)
+      .then((res) => {
+        console.log("Dane:");
+        console.log(res.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data.error.name === "ValidationError")
+            setErrorMessage("Nieprawidłowe dane logowania");
+          else setErrorMessage(err.response.error.message);
+          console.error(err.response);
+        } else if (err.request) {
+          setErrorMessage("Błąd połączenia");
+          console.error(err.request);
+        } else {
+          setErrorMessage(`Błąd ${err.message}`);
+          console.error(err.message);
+        }
+        setIsLoading(false);
+      });
+  };
+
+  if (errorMessage)
+    return (
+      <AuthContent
+        isLogin
+        onAuthenticate={loginHandler}
+        requestError={errorMessage}
+      />
+    );
+
+  if (isLoading)
+    return <LoadingScreen message={"Sprawdzamy dane logowania..."} />;
+
+  return <AuthContent isLogin onAuthenticate={loginHandler} />;
 };
 
 export default LoginScreen;

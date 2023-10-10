@@ -75,7 +75,8 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
         <View style={styles.checkBoxContainer}>
           <Checkbox
             value={formValues.agreement}
-            onValueChange={(value) => handleInputChange("checkBox", value)}
+            name={"agreement"}
+            onValueChange={(value) => handleInputChange("agreement", value)}
             color={Colors.primary500}
           />
           <Text>*Akceptuję regulamin serwisu</Text>

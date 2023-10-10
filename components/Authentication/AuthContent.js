@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import Colors from "../../constants/colors";
 import AuthForm from "./AuthForm";
 
-export const AuthContent = ({ isLogin, onAuthenticate }) => {
+export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
   const [errors, setErrors] = useState({});
 
   const navigation = useNavigation();
@@ -51,7 +51,7 @@ export const AuthContent = ({ isLogin, onAuthenticate }) => {
 
     setErrors(err);
     if (valid && isLogin) {
-      onAuthenticate({ email, password });
+      onAuthenticate({ identifier: email, password });
     }
     if (valid && !isLogin) {
       onAuthenticate({ username, email, password });
@@ -62,6 +62,9 @@ export const AuthContent = ({ isLogin, onAuthenticate }) => {
     <ScrollView contentContainerStyle={styles.authContentContainer}>
       <AuthForm isLogin={isLogin} onSubmit={onSubmit} errors={errors} />
       {/*TODO: Make a flat button component*/}
+      {requestError && (
+        <Text style={styles.requestErrorMessage}>{requestError}</Text>
+      )}
       <View style={styles.switchAuthScreenContainer}>
         <Text>{isLogin ? "Nie masz konta? " : "Masz już konto? "}</Text>
         <Pressable onPress={switchAuthScreen}>
@@ -86,6 +89,9 @@ const styles = StyleSheet.create({
   },
   switchAuthLink: {
     color: Colors.primary500,
+  },
+  requestErrorMessage: {
+    color: Colors.warning500,
   },
 });
 
