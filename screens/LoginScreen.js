@@ -1,18 +1,20 @@
 import AuthContent from "../components/Authentication/AuthContent";
 import { login } from "../util/auth";
 import LoadingScreen from "./LoadingScreen";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../store/authContext";
 
 const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const authContext = useContext(AuthContext);
   const loginHandler = async ({ identifier, password }) => {
     setIsLoading(true);
     setErrorMessage(null);
     login(identifier, password)
       .then((res) => {
-        console.log("Dane:");
-        console.log(res.data);
+        authContext.authenticate({ jwt: res.data.jwt, user: res.data.user });
         setIsLoading(false);
       })
       .catch((err) => {

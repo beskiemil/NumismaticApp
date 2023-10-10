@@ -32,7 +32,6 @@ const SignUpScreen = () => {
         }
         setIsLoading(false);
       });
-    setIsLoading(false);
   };
 
   if (isLoading) return <LoadingScreen requestError={errorMessage} />;
