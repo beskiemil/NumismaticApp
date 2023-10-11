@@ -1,12 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { signup } from "../util/auth";
 import LoadingScreen from "./LoadingScreen";
-import AuthContent from "../components/Authentication/AuthContent";
+import AuthContent from "../components/authentication/AuthContent";
 import { AuthContext } from "../store/authContext";
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Zaloguj się",
+    });
+  }, [navigation]);
 
   const authContext = useContext(AuthContext);
   const signUpHandler = async ({ username, email, password }) => {

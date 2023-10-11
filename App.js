@@ -8,6 +8,8 @@ import AuthContextProvider, { AuthContext } from "./store/authContext";
 import { useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import LoadingScreen from "./screens/LoadingScreen";
+import { StatusBar } from "expo-status-bar";
+import { LogoutButton } from "./components/LogoutButton";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +24,10 @@ const Navigation = () => {
           screenOptions={{
             headerStyle: { backgroundColor: Colors.primary500 },
             headerTintColor: "white",
+            headerTitleAlign: "center",
+            headerRight: ({ tintColor }) => (
+              <LogoutButton size={24} color={tintColor} />
+            ),
           }}
         >
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -32,6 +38,7 @@ const Navigation = () => {
           screenOptions={{
             headerStyle: { backgroundColor: Colors.primary500 },
             headerTintColor: "white",
+            headerTitleAlign: "center",
           }}
         >
           <Stack.Screen name="Login" component={LoginScreen} />
@@ -63,8 +70,11 @@ const Root = () => {
 };
 export default function App() {
   return (
-    <AuthContextProvider>
-      <Root />
-    </AuthContextProvider>
+    <>
+      <StatusBar style={"light"} />
+      <AuthContextProvider>
+        <Root />
+      </AuthContextProvider>
+    </>
   );
 }
