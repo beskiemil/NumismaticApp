@@ -10,7 +10,7 @@ const SignUpScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Zaloguj się",
+      title: "Zarejestruj się",
     });
   }, [navigation]);
 
