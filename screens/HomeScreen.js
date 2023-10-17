@@ -1,6 +1,13 @@
 import { Button, StyleSheet, Text, View } from "react-native";
+import { useLayoutEffect } from "react";
 
 const HomeScreen = ({ navigation }) => {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Strona główna",
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>

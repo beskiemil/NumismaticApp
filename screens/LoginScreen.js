@@ -1,43 +1,58 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import SimpleTextInput from "../components/SimpleTextInput";
-import PrimaryButton from "../components/PrimaryButton";
-import Colors from "../constants/colors";
+import AuthContent from "../components/authentication/AuthContent";
+import { login } from "../util/auth";
+import LoadingScreen from "./LoadingScreen";
+import { useContext, useLayoutEffect, useState } from "react";
+import { AuthContext } from "../store/authContext";
 
 const LoginScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <View>
-        <SimpleTextInput placeholder="e-mail" label={"E-mail"} />
-        <SimpleTextInput placeholder="password" label={"Hasło"} />
-      </View>
-      <View>
-        <Text>Nie masz konta?</Text>
-        <Pressable onPress={() => navigation.navigate("Register")}>
-          <Text style={styles.registerText}>Zarejestruj się</Text>
-        </Pressable>
-      </View>
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-      {/* eslint-disable-next-line react-native/no-raw-text */}
-      <PrimaryButton style={styles.button} inActive={true}>
-        Zaloguj
-      </PrimaryButton>
-    </View>
-  );
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Zaloguj się",
+    });
+  }, [navigation]);
+
+  const authContext = useContext(AuthContext);
+  const loginHandler = async ({ identifier, password }) => {
+    setIsLoading(true);
+    setErrorMessage(null);
+    login(identifier, password)
+      .then((res) => {
+        authContext.authenticate(res.data.jwt, res.data.user);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data.error.name === "ValidationError")
+            setErrorMessage("Nieprawidłowe dane logowania");
+          else setErrorMessage(err.response.error.message);
+          console.error(err.response);
+        } else if (err.request) {
+          setErrorMessage("Błąd połączenia");
+          console.error(err.request);
+        } else {
+          setErrorMessage(`Błąd ${err.message}`);
+          console.error(err.message);
+        }
+        setIsLoading(false);
+      });
+  };
+
+  if (errorMessage)
+    return (
+      <AuthContent
+        isLogin
+        onAuthenticate={loginHandler}
+        requestError={errorMessage}
+      />
+    );
+
+  if (isLoading)
+    return <LoadingScreen message={"Sprawdzamy dane logowania..."} />;
+
+  return <AuthContent isLogin onAuthenticate={loginHandler} />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 15,
-  },
-  button: {
-    margin: 10,
-  },
-  registerText: {
-    color: Colors.primary500,
-  },
-});
 
 export default LoginScreen;
