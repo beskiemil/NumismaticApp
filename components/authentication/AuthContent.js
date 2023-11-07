@@ -59,7 +59,12 @@ export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.authContentContainer}>
+    <ScrollView
+      contentContainerStyle={styles.authContentContainer}
+      keyboardShouldPersistTaps={"handled"}
+      keyboardDismissMode={"on-drag"}
+      bounces={false}
+    >
       <AuthForm isLogin={isLogin} onSubmit={onSubmit} errors={errors} />
       {/*TODO: Make a flat button component*/}
       {requestError && (
