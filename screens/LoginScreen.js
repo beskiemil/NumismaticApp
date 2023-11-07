@@ -20,21 +20,29 @@ const LoginScreen = ({ navigation }) => {
     setErrorMessage(null);
     login(identifier, password)
       .then((res) => {
+        console.log(`Authenticating: ${res.data.user}`);
         authContext.authenticate(res.data.jwt, res.data.user);
         setIsLoading(false);
       })
       .catch((err) => {
         if (err.response) {
-          if (err.response.data.error.name === "ValidationError")
+          if (
+            err.response.data.error.message === "Invalid identifier or password"
+          )
             setErrorMessage("Nieprawidłowe dane logowania");
-          else setErrorMessage(err.response.error.message);
-          console.error(err.response);
+          else if (
+            err.response.data.error.message ===
+            "Your account email is not confirmed"
+          )
+            setErrorMessage("Niepotwierdzony adres e-mail");
+          else setErrorMessage(err.response.data.error.message);
+          console.error("Response error: ", err.response);
         } else if (err.request) {
           setErrorMessage("Błąd połączenia");
-          console.error(err.request);
+          console.error("Request error: ", err.request);
         } else {
-          setErrorMessage(`Błąd ${err.message}`);
-          console.error(err.message);
+          setErrorMessage(`Błąd ${err.data.error.message}`);
+          console.error(err.data.error.message);
         }
         setIsLoading(false);
       });
