@@ -70,14 +70,14 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   inputError: {
-    borderColor: Colors.warning400,
+    borderColor: Colors.danger500,
   },
   errorMessage: {
     textAlign: "right",
     marginRight: 5,
     fontSize: 14,
     includeFontPadding: false,
-    color: Colors.warning400,
+    color: Colors.danger500,
   },
 });
 

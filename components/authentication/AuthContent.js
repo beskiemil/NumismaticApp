@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     color: Colors.primary500,
   },
   requestErrorMessage: {
-    color: Colors.warning500,
+    color: Colors.danger500,
   },
 });
 
