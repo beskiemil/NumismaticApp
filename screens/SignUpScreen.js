@@ -19,25 +19,11 @@ const SignUpScreen = ({ navigation }) => {
     setIsLoading(true);
     signup(username, email, password)
       .then((res) => {
-        authContext.authenticate(res.data.jwt, res.data.user);
+        // go to email confirmation message screen
         setIsLoading(false);
       })
       .catch((err) => {
-        if (err.response) {
-          if (
-            err.response.data.error.message ===
-            "Email or Username are already taken"
-          )
-            setErrorMessage("Nazwa lub e-mail są już zajęte");
-          else setErrorMessage(err.response.data.error.message);
-          console.log(err.response);
-        } else if (err.request) {
-          setErrorMessage("Błąd połączenia");
-          console.error(err.request);
-        } else {
-          setErrorMessage(`Błąd ${err.message}`);
-          console.error(err.message);
-        }
+        setErrorMessage(err.message);
         setIsLoading(false);
       });
   };
