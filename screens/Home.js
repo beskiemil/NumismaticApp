@@ -1,7 +1,7 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useLayoutEffect } from "react";
 
-const HomeScreen = ({ navigation }) => {
+const Home = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Strona główna",
@@ -11,7 +11,6 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
-      <Button title="Login" onPress={() => navigation.push("Login")} />
     </View>
   );
 };
@@ -24,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;

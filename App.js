@@ -1,17 +1,22 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/HomeScreen";
-import LoginScreen from "./screens/LoginScreen";
-import SignUpScreen from "./screens/SignUpScreen";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
 import Colors from "./constants/colors";
 import AuthContextProvider, { AuthContext } from "./store/authContext";
 import { useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
-import LoadingScreen from "./screens/LoadingScreen";
+import Loading from "./screens/Loading";
 import { StatusBar } from "expo-status-bar";
 import { LogoutButton } from "./components/LogoutButton";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./screens/Home";
+import Settings from "./screens/Settings";
+import Collection from "./screens/Collection";
+import Catalog from "./screens/Catalog";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
   const authContext = useContext(AuthContext);
@@ -19,7 +24,7 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       {authContext.isAuthenticated ? (
-        <Stack.Navigator
+        <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
             headerStyle: { backgroundColor: Colors.primary500 },
@@ -30,8 +35,11 @@ const Navigation = () => {
             ),
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
-        </Stack.Navigator>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Catalog" component={Catalog} />
+          <Tab.Screen name="Collection" component={Collection} />
+          <Tab.Screen name="Settings" component={Settings} />
+        </Tab.Navigator>
       ) : (
         <Stack.Navigator
           initialRouteName="Login"
@@ -41,8 +49,8 @@ const Navigation = () => {
             headerTitleAlign: "center",
           }}
         >
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Signup" component={SignUpScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Signup" component={SignUp} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
@@ -65,7 +73,7 @@ const Root = () => {
     fetchUserData();
   }, []);
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading) return <Loading />;
   return <Navigation />;
 };
 export default function App() {

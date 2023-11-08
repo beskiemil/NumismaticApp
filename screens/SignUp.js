@@ -1,10 +1,10 @@
 import { useContext, useLayoutEffect, useState } from "react";
 import { signup } from "../util/auth";
-import LoadingScreen from "./LoadingScreen";
+import Loading from "./Loading";
 import AuthContent from "../components/authentication/AuthContent";
 import { AuthContext } from "../store/authContext";
 
-const SignUpScreen = ({ navigation }) => {
+const SignUp = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -28,9 +28,9 @@ const SignUpScreen = ({ navigation }) => {
       });
   };
 
-  if (isLoading) return <LoadingScreen requestError={errorMessage} />;
+  if (isLoading) return <Loading requestError={errorMessage} />;
 
   return <AuthContent onAuthenticate={signUpHandler} />;
 };
 
-export default SignUpScreen;
+export default SignUp;

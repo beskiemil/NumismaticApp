@@ -1,10 +1,10 @@
 import AuthContent from "../components/authentication/AuthContent";
 import { login } from "../util/auth";
-import LoadingScreen from "./LoadingScreen";
+import Loading from "./Loading";
 import { useContext, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../store/authContext";
 
-const LoginScreen = ({ navigation }) => {
+const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -39,10 +39,9 @@ const LoginScreen = ({ navigation }) => {
       />
     );
 
-  if (isLoading)
-    return <LoadingScreen message={"Sprawdzamy dane logowania..."} />;
+  if (isLoading) return <Loading message={"Sprawdzamy dane logowania..."} />;
 
   return <AuthContent isLogin onAuthenticate={loginHandler} />;
 };
 
-export default LoginScreen;
+export default Login;
