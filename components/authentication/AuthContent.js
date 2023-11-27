@@ -25,7 +25,7 @@ export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
 
     const usernameIsValid = username.length > 1;
     const emailIsValid = email.includes("@");
-    const passwordIsValid = password.length > 8;
+    const passwordIsValid = password.length >= 8;
     const passwordsAreEqual = password === confirmPassword;
 
     if (!emailIsValid) {
