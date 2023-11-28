@@ -2,12 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { useLayoutEffect } from "react";
 
 const Catalog = ({ navigation }) => {
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: "Katalog",
-    });
-  }, [navigation]);
-
   return (
     <View style={styles.container}>
       <Text>Katalog</Text>
