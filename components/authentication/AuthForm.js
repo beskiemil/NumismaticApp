@@ -1,72 +1,103 @@
 import { StyleSheet, Text, View } from "react-native";
-import SimpleTextInput from "../SimpleTextInput";
+import ControlledInput from "../ui/ControlledInput";
 import { Checkbox } from "expo-checkbox";
 import Colors from "../../constants/colors";
 import PrimaryButton from "../PrimaryButton";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
-export const AuthForm = ({ isLogin, onSubmit, errors }) => {
-  const [formValues, setFormValues] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    agreement: false,
+export const AuthForm = ({ isLogin, onSubmit }) => {
+  const [agreement, setAgreement] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
-
-  const handleInputChange = (name, text) => {
-    setFormValues({ ...formValues, [name]: text });
-  };
-
-  const submitHandler = () => {
-    onSubmit(formValues);
-  };
 
   return (
     <View style={styles.formContainer}>
       <View>
         {/*//TODO: username availability check*/}
         {!isLogin && (
-          <SimpleTextInput
+          <ControlledInput
+            name={"username"}
+            control={control}
+            rules={{
+              required: "Nazwa użytkownika jest wymagana",
+              minLength: {
+                value: 3,
+                message: "Nazwa użytkownika musi mieć minimum 3 znaki",
+              },
+              maxLength: {
+                value: 20,
+                message: "Nazwa użytkownika może mieć maksymalnie 20 znaków",
+              },
+            }}
             label={"Nazwa"}
-            error={errors?.username}
             autoComplete={"username"}
             inputMode={"text"}
-            name={"username"}
-            value={formValues.username}
-            onChange={(name, text) => handleInputChange(name, text)}
           />
         )}
 
-        <SimpleTextInput
+        <ControlledInput
+          name={"email"}
+          control={control}
+          rules={{
+            required: "E-mail jest wymagany",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Niepoprawny adres e-mail",
+            },
+          }}
           label={"E-mail"}
-          error={errors?.email}
           autoComplete={"email"}
           inputMode={"email"}
-          name={"email"}
-          value={formValues.email}
-          onChange={(name, text) => handleInputChange(name, text)}
         />
-        <SimpleTextInput
+        <ControlledInput
+          name={"password"}
+          control={control}
+          rules={{
+            required: "Hasło jest wymagane",
+            minLength: {
+              value: 8,
+              message: "Hasło musi mieć minimum 8 znaków",
+            },
+            maxLength: {
+              value: 20,
+              message: "Hasło może mieć maksymalnie 20 znaków",
+            },
+          }}
           label={"Hasło"}
-          error={errors?.password}
           autoComplete={"new-password"}
           inputMode={"text"}
           secureTextEntry={true}
-          name={"password"}
-          value={formValues.password}
-          onChange={(name, text) => handleInputChange(name, text)}
         />
         {!isLogin && (
-          <SimpleTextInput
+          <ControlledInput
+            name={"confirmPassword"}
+            control={control}
+            rules={{
+              required: "Powtórzenie hasła jest wymagane",
+              minLength: {
+                value: 8,
+                message: "Hasło musi mieć minimum 8 znaków",
+              },
+              maxLength: {
+                value: 20,
+                message: "Hasło może mieć maksymalnie 20 znaków",
+              },
+            }}
             label={"Powtórz hasło"}
-            error={errors?.confirmPassword}
             autoComplete={"new-password"}
             inputMode={"text"}
             secureTextEntry={true}
-            name={"confirmPassword"}
-            value={formValues.confirmPassword}
-            onChange={(name, text) => handleInputChange(name, text)}
           />
         )}
       </View>
@@ -74,9 +105,9 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
       {!isLogin && (
         <View style={styles.checkBoxContainer}>
           <Checkbox
-            value={formValues.agreement}
+            value={agreement}
             name={"agreement"}
-            onValueChange={(value) => handleInputChange("agreement", value)}
+            onValueChange={(value) => setAgreement(value)}
             color={Colors.primary500}
           />
           <Text>*Akceptuję regulamin serwisu</Text>
@@ -86,7 +117,7 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
       <PrimaryButton
         text={isLogin ? "Zaloguj się" : "Zarejestruj się"}
         style={styles.button}
-        onPress={submitHandler}
+        onPress={handleSubmit(onSubmit)}
       />
     </View>
   );
@@ -95,6 +126,7 @@ export const AuthForm = ({ isLogin, onSubmit, errors }) => {
 const styles = StyleSheet.create({
   formContainer: {
     gap: 15,
+    width: "60%",
   },
   checkBoxContainer: {
     flexDirection: "row",
