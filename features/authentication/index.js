@@ -1,4 +1,4 @@
-import { AuthContext } from "./context/authContext";
+import { AuthContext, AuthContextProvider } from "./context/AuthContext";
 import AuthContent from "./components/AuthContent";
 
-export { AuthContext, AuthContent };
+export { AuthContext, AuthContextProvider, AuthContent };

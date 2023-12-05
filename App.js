@@ -1,11 +1,9 @@
-import AuthContextProvider, {
-  AuthContext,
-} from "./features/authentication/context/authContext";
+import { AuthContext, AuthContextProvider } from "./features/authentication/";
 import { useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import Loading from "./screens/Loading";
 import { StatusBar } from "expo-status-bar";
-import Navigation from "./components/Navigation";
+import { Navigation } from "./features/navigation/";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RootSiblingParent } from "react-native-root-siblings";
 
