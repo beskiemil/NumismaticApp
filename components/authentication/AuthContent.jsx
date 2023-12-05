@@ -10,13 +10,15 @@ export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
     if (isLogin) navigation.replace("Signup");
     else navigation.replace("Login");
   };
+
   const onSubmit = (data) => {
     let { username, email, password, confirmPassword, agreement } = data;
     if (isLogin) {
       onAuthenticate({ identifier: email, password });
     }
     if (!isLogin) {
-      onAuthenticate({ username, email, password });
+      if (password === confirmPassword && agreement)
+        onAuthenticate({ username, email, password });
     }
   };
 
