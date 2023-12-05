@@ -7,14 +7,52 @@ import { LogoutButton } from "./LogoutButton";
 import Home from "../screens/Home";
 import Catalog from "../screens/Catalog";
 import Collection from "../screens/Collection";
-import Settings from "../screens/Settings";
+import SettingsList from "../screens/settings/SettingsList";
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 import { useContext } from "react";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import Account from "../screens/settings/Account";
+import Application from "../screens/settings/Application";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const SettingsStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="SettingsList"
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: "white",
+        headerTitleAlign: "center",
+      }}
+    >
+      <Stack.Screen
+        name="SettingsList"
+        component={SettingsList}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={"Account"}
+        component={Account}
+        options={{
+          title: "Konto",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={"Application"}
+        component={Application}
+        options={{
+          title: "Aplikacja",
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const Navigation = () => {
   const authContext = useContext(AuthContext);
@@ -28,9 +66,6 @@ const Navigation = () => {
             headerStyle: { backgroundColor: Colors.primary500 },
             headerTintColor: "white",
             headerTitleAlign: "center",
-            headerRight: ({ tintColor }) => (
-              <LogoutButton size={24} color={tintColor} />
-            ),
             tabBarActiveTintColor: Colors.primary500,
             tabBarHideOnKeyboard: true,
             tabBarItemStyle: {
@@ -74,7 +109,7 @@ const Navigation = () => {
           />
           <Tab.Screen
             name="Settings"
-            component={Settings}
+            component={SettingsStack}
             options={{
               title: "Ustawienia",
               tabBarIcon: ({ color, size }) => (
