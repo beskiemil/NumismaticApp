@@ -1,13 +1,12 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/colors";
-import colors from "../constants/colors";
 
-export const LoadingScreen = ({ message }) => {
+export const Loading = ({ message }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Czekaj...</Text>
       <Text style={styles.message}>{message}</Text>
-      <ActivityIndicator size={"large"} color={colors.primary400} />
+      <ActivityIndicator size={"large"} color={Colors.primary400} />
     </View>
   );
 };
@@ -29,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoadingScreen;
+export default Loading;
