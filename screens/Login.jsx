@@ -1,8 +1,7 @@
-import AuthContent from "../components/authentication/AuthContent";
+import { AuthContent, AuthContext } from "../features/authentication/";
 import { login } from "../util/auth";
 import Loading from "./Loading";
 import { useContext, useLayoutEffect, useState } from "react";
-import { AuthContext } from "../store/authContext";
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);

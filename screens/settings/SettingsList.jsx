@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Colors from "../../constants/colors";
-import { AuthContext } from "../../store/authContext";
+import { AuthContext } from "../../features/authentication/";
 import { useContext } from "react";
 
 const SettingsList = ({ navigation }) => {

@@ -1,6 +1,6 @@
 import IconButton from "./IconButton";
 import { useContext } from "react";
-import { AuthContext } from "../store/authContext";
+import { AuthContext } from "../features/authentication/";
 
 export const LogoutButton = ({ size, color }) => {
   const authContext = useContext(AuthContext);

@@ -1,9 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { AuthContext } from "../store/authContext";
+import { AuthContext } from "../features/authentication/";
 import { NavigationContainer } from "@react-navigation/native";
 import Colors from "../constants/colors";
-import { LogoutButton } from "./LogoutButton";
 import Home from "../screens/Home";
 import Catalog from "../screens/Catalog";
 import Collection from "../screens/Collection";

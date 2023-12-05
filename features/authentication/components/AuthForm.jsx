@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import ControlledInput from "../ui/ControlledInput";
+import ControlledInput from "../../../components/ui/ControlledInput";
 import { Checkbox } from "expo-checkbox";
-import Colors from "../../constants/colors";
-import PrimaryButton from "../PrimaryButton";
+import Colors from "../../../constants/colors";
+import PrimaryButton from "../../../components/PrimaryButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 

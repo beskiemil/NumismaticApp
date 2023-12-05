@@ -1,6 +1,6 @@
 import { Pressable, Text, View, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Colors from "../../constants/colors";
+import Colors from "../../../constants/colors";
 import AuthForm from "./AuthForm";
 
 export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
