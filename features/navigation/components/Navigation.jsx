@@ -4,13 +4,14 @@ import { AuthContext } from "../../authentication";
 import { NavigationContainer } from "@react-navigation/native";
 import Colors from "../../../constants/colors";
 import Home from "../../../screens/Home";
-import Catalog from "../../../screens/Catalog";
+import Catalog from "../../../screens/catalog/Catalog";
 import Collection from "../../../screens/Collection";
 import Login from "../../../screens/Login";
 import SignUp from "../../../screens/SignUp";
 import { useContext } from "react";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import SettingsNavigator from "./SettingsNavigator";
+import { CatalogNavigator } from "./CatalogNavigator";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,13 +66,14 @@ const AuthenticatedNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Catalog"
-      component={Catalog}
+      name="CatalogRoot"
+      component={CatalogNavigator}
       options={{
         title: "Katalog",
         tabBarIcon: ({ color, size }) => (
           <FontAwesome5 name="search-dollar" size={size} color={color} />
         ),
+        headerShown: false,
       }}
     />
     <Tab.Screen
