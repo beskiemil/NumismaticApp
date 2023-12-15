@@ -5,11 +5,12 @@ export const AuthContext = createContext({
   token: "",
   isAuthenticated: false,
   user: {},
+  // eslint-disable-next-line no-unused-vars
   authenticate: (token) => {},
   logout: () => {},
 });
 
-const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState();
   const [user, setUser] = useState();
 
@@ -41,4 +42,3 @@ const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-export default AuthContextProvider;

@@ -1,11 +1,10 @@
 import { View, StyleSheet } from "react-native";
-import Colors from "../../constants/colors";
-import Heading from "../../components/ui/Heading";
+import { PasswordChangeForm } from "../../features/password-change";
 
-const Account = () => {
+const Account = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Heading text="Zmiana hasła" />
+      <PasswordChangeForm navigation={navigation} />
     </View>
   );
 };
@@ -14,7 +13,5 @@ export default Account;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
-    alignItems: "center",
   },
 });

@@ -14,7 +14,6 @@ export default Heading;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: Colors.background,
     paddingTop: 12,
     paddingBottom: 24,
     paddingHorizontal: 24,

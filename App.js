@@ -1,10 +1,13 @@
-import AuthContextProvider, { AuthContext } from "./store/authContext";
+import { AuthContext, AuthContextProvider } from "./features/authentication/";
 import { useContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import Loading from "./screens/Loading";
 import { StatusBar } from "expo-status-bar";
-import Navigation from "./components/Navigation";
+import { Navigation } from "./features/navigation/";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RootSiblingParent } from "react-native-root-siblings";
 
+const queryClient = new QueryClient();
 const Root = () => {
   const [isLoading, setIsLoading] = useState(true);
   const authContext = useContext(AuthContext);
@@ -26,11 +29,14 @@ const Root = () => {
 };
 export default function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <StatusBar style={"light"} />
-      <AuthContextProvider>
-        <Root />
-      </AuthContextProvider>
-    </>
+      {/*For toast display*/}
+      <RootSiblingParent>
+        <AuthContextProvider>
+          <Root />
+        </AuthContextProvider>
+      </RootSiblingParent>
+    </QueryClientProvider>
   );
 }
