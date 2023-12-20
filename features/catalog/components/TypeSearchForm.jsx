@@ -34,7 +34,7 @@ export const TypeSearchForm = ({ onSubmit }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 80,
+    alignItems: "center",
     width: "100%",
   },
 });

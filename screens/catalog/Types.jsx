@@ -4,6 +4,7 @@ import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Loading from "../Loading";
+import * as qs from "qs";
 
 const initialQueryParams = {
   searchQuery: "",
@@ -26,11 +27,27 @@ const Types = ({ route, navigation }) => {
     queryKey: ["types", queryParams],
     queryFn: () => {
       const { searchQuery, mint, issuer } = queryParams;
-      const q = searchQuery ? `q=${searchQuery}` : "";
-      return get(`/types/?${q}`);
+      const q = qs.stringify({
+        ...(searchQuery && { q: searchQuery }),
+        populate: [
+          "obverse",
+          "obverse.picture",
+          "reverse",
+          "reverse.picture",
+          "edge",
+          "edge.picture",
+          "watermark",
+          "watermark.picture",
+        ],
+      });
+      return get(`/types?${q}`);
     },
     enabled: !!queryParams,
   });
+
+  const onTypeClick = (id) => {
+    navigation.navigate("Type", { id });
+  };
 
   if (isLoading) return <Loading message={"Przeszukujemy katalog..."} />;
   if (error) console.log(error, queryParams);
@@ -43,7 +60,7 @@ const Types = ({ route, navigation }) => {
       bounces={false}
     >
       <TypeSearchForm onSubmit={handleSearch} />
-      <TypesList types={types} />
+      <TypesList types={types} onTypeClick={onTypeClick} />
     </ScrollView>
   );
 };
@@ -52,6 +69,7 @@ export default Types;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     gap: 20,
   },

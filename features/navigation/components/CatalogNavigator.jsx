@@ -3,6 +3,7 @@ import Colors from "../../../constants/colors";
 import SettingsList from "../../../screens/settings/SettingsList";
 import Catalog from "../../../screens/catalog/Catalog";
 import Types from "../../../screens/catalog/Types";
+import Type from "../../../screens/catalog/Type";
 
 const Stack = createNativeStackNavigator();
 export const CatalogNavigator = () => {
@@ -27,6 +28,13 @@ export const CatalogNavigator = () => {
         component={Types}
         options={{
           title: "Wyniki wyszukiwania",
+        }}
+      />
+      <Stack.Screen
+        name={"Type"}
+        component={Type}
+        options={{
+          title: "Type",
         }}
       />
     </Stack.Navigator>
