@@ -1,11 +1,7 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "../../../components/ui/ControlledInput";
 import PrimaryButton from "../../../components/PrimaryButton";
-import useAxios from "../../../hooks/useAxios";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import Loading from "../../../screens/Loading";
-import { useEffect, useState } from "react";
 
 export const TypeSearchForm = ({ onSubmit }) => {
   const {

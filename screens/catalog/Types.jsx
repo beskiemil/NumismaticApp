@@ -1,16 +1,11 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
-import { TypeSearchForm, TypesList } from "../../features/catalog/";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { TypeCard, TypeSearchForm } from "../../features/catalog/";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Loading from "../Loading";
 import * as qs from "qs";
 
-const initialQueryParams = {
-  searchQuery: "",
-  mint: "",
-  issuer: "",
-};
 const Types = ({ route, navigation }) => {
   const [queryParams, setQueryParams] = useState(route.params?.searchParams);
   const handleSearch = (queryParams) => {
@@ -30,6 +25,7 @@ const Types = ({ route, navigation }) => {
       const q = qs.stringify({
         ...(searchQuery && { q: searchQuery }),
         populate: [
+          "issuer",
           "obverse",
           "obverse.picture",
           "reverse",
@@ -50,18 +46,22 @@ const Types = ({ route, navigation }) => {
   };
 
   if (isLoading) return <Loading message={"Przeszukujemy katalog..."} />;
-  if (error) console.log(error, queryParams);
+  if (error) console.log(error.message, queryParams);
 
+  const listHeader = <TypeSearchForm onSubmit={handleSearch} />;
   return (
-    <ScrollView
-      contentContainerStyle={styles.container}
-      keyboardShouldPersistTaps={"handled"}
-      keyboardDismissMode={"on-drag"}
-      bounces={false}
-    >
-      <TypeSearchForm onSubmit={handleSearch} />
-      <TypesList types={types} onTypeClick={onTypeClick} />
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        data={types.data}
+        renderItem={({ item }) => {
+          return <TypeCard type={item} onCardClick={onTypeClick} />;
+        }}
+        ListHeaderComponent={listHeader}
+        keyExtractor={(item) => item.id}
+        style={styles.list}
+        contentContainerStyle={styles.listContent}
+      />
+    </View>
   );
 };
 
@@ -70,7 +70,10 @@ export default Types;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+  },
+  listContent: {
+    width: "100%",
+    paddingHorizontal: "10%",
     gap: 20,
   },
 });

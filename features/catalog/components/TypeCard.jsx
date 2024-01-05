@@ -7,13 +7,14 @@ export const TypeCard = ({ type, onCardClick }) => {
   const {
     title,
     numista_id,
+    issuer,
     reverse,
     obverse,
-    category,
+    type: kind,
     series,
-    commemorated_topic,
-    min_year,
-    max_year,
+    composition,
+    weight,
+    size,
   } = type?.attributes;
 
   const handleCardClick = useCallback(() => {
@@ -58,19 +59,19 @@ export const TypeCard = ({ type, onCardClick }) => {
         </View>
         <View style={styles.propertiesWrapper}>
           {numista_id && (
-            <View>
-              <Text style={styles.text}>Numista ID: N#{numista_id}</Text>
-            </View>
+            <Text style={styles.propertyText}>Numista ID: N#{numista_id}</Text>
           )}
-          <Text style={styles.text}>Kategoria: {category}</Text>
-          {commemorated_topic && (
-            <>
-              <Text style={styles.text}>Wydanie okolicznościowe</Text>
-              <Text style={styles.text}>Seria: {series}</Text>
-            </>
-          )}
-          <Text style={styles.text}>
-            Lata emisji: {min_year} - {max_year}
+          <Text style={styles.propertyText}>
+            {issuer?.data?.attributes?.name}
+          </Text>
+          <Text style={styles.propertyText}>
+            {kind}
+            {series && ": " + series}
+          </Text>
+          <Text style={styles.propertyText}>
+            {composition}
+            {weight && ", " + weight + " g"}
+            {size && ", " + size + " mm"}
           </Text>
         </View>
       </View>
@@ -85,11 +86,6 @@ const styles = StyleSheet.create({
     minHeight: 250,
     borderRadius: 15,
     padding: 25,
-    opacity: 0.9,
-  },
-  titleWrapper: {
-    flexDirection: "row",
-    marginBottom: 10,
   },
   title: {
     color: "white",
@@ -98,7 +94,7 @@ const styles = StyleSheet.create({
   imageRow: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   imageWrapper: {
     alignItems: "center",
@@ -112,10 +108,9 @@ const styles = StyleSheet.create({
     height: 140,
   },
   propertiesWrapper: {
-    gap: 5,
+    gap: 2,
   },
-  text: {
-    fontSize: 16,
-    color: Colors.white,
+  propertyText: {
+    color: "white",
   },
 });

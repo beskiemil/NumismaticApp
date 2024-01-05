@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import * as qs from "qs";
 import Loading from "../Loading";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { TypeDetails } from "../../features/catalog";
 
 export const Type = ({ navigation, route }) => {
@@ -30,13 +30,13 @@ export const Type = ({ navigation, route }) => {
           "issuer",
           "mints",
           "value",
+          "value.currency",
         ],
       });
-      console.log(q);
       return await get(`/types/${id}?${q}`);
     },
-    initialData: { data: {}, meta: {} },
     enabled: !!id,
+    initialData: { data: { attributes: {}, meta: {} } },
   });
 
   if (isLoading) return <Loading message={"Ładowanie..."} />;
@@ -44,7 +44,7 @@ export const Type = ({ navigation, route }) => {
 
   if (isSuccess)
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView style={styles.view} alwaysBounceVertical={false}>
         <TypeDetails type={type} />
       </ScrollView>
     );
@@ -52,7 +52,7 @@ export const Type = ({ navigation, route }) => {
 export default Type;
 
 const styles = StyleSheet.create({
-  container: {
+  view: {
     flex: 1,
     padding: 20,
   },
