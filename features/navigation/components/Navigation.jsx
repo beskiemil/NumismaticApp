@@ -4,7 +4,6 @@ import { AuthContext } from "../../authentication";
 import { NavigationContainer } from "@react-navigation/native";
 import Colors from "../../../constants/colors";
 import Home from "../../../screens/Home";
-import Catalog from "../../../screens/catalog/Catalog";
 import Collection from "../../../screens/Collection";
 import Login from "../../../screens/Login";
 import SignUp from "../../../screens/SignUp";
