@@ -1,9 +1,9 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
 
 export const TypeDetails = ({ type }) => {
-  const { id } = type;
   const {
+    id,
     title,
     numista_id,
     commemorated_topic,
@@ -26,7 +26,7 @@ export const TypeDetails = ({ type }) => {
     obverse,
     edge,
     watermark,
-  } = type?.attributes;
+  } = type;
 
   return (
     <View style={styles.container}>
@@ -37,8 +37,7 @@ export const TypeDetails = ({ type }) => {
             <View style={styles.imageWrapper}>
               <Image
                 source={{
-                  uri: obverse?.picture?.data?.attributes?.formats?.thumbnail
-                    .url,
+                  uri: obverse?.picture?.formats?.thumbnail.url,
                 }}
                 style={styles.img}
               />
@@ -51,8 +50,7 @@ export const TypeDetails = ({ type }) => {
             <View style={styles.imageWrapper}>
               <Image
                 source={{
-                  uri: reverse?.picture?.data?.attributes?.formats?.thumbnail
-                    .url,
+                  uri: reverse?.picture?.formats?.thumbnail.url,
                 }}
                 style={styles.img}
               />
@@ -124,9 +122,7 @@ export const TypeDetails = ({ type }) => {
           </View>
           {issuer && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>
-                {issuer?.data.attributes.name}
-              </Text>
+              <Text style={styles.propertyValueText}>{issuer?.name}</Text>
             </View>
           )}
         </View>
@@ -138,9 +134,7 @@ export const TypeDetails = ({ type }) => {
           {/*  TODO: MOZE BYC WIECEJ MENNIC!!*/}
           {mints && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>
-                {mints?.data[0]?.attributes.name}
-              </Text>
+              <Text style={styles.propertyValueText}>{mints?.[0].name}</Text>
             </View>
           )}
         </View>

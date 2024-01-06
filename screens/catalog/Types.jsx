@@ -1,14 +1,15 @@
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { TypeCard, TypeSearchForm } from "../../features/catalog/";
 import useAxios from "../../hooks/useAxios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import Loading from "../Loading";
 import * as qs from "qs";
 
 const Types = ({ route, navigation }) => {
   const [queryParams, setQueryParams] = useState(route.params?.searchParams);
-  const handleSearch = (queryParams) => {
+  // TODO: TEKST WPISANY W POLE WYSZUKIWANIA NIE ZOSTAJE ZAPAMIĘTANY
+  const handleSearch = async (queryParams) => {
     setQueryParams(queryParams);
   };
 
@@ -53,9 +54,9 @@ const Types = ({ route, navigation }) => {
     <View style={styles.container}>
       <FlatList
         data={types.data}
-        renderItem={({ item }) => {
-          return <TypeCard type={item} onCardClick={onTypeClick} />;
-        }}
+        renderItem={({ item }) => (
+          <TypeCard type={item} onCardClick={onTypeClick} />
+        )}
         ListHeaderComponent={listHeader}
         keyExtractor={(item) => item.id}
         style={styles.list}

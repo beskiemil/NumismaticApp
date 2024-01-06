@@ -3,8 +3,8 @@ import Colors from "../../../constants/colors";
 import { useCallback } from "react";
 
 export const TypeCard = ({ type, onCardClick }) => {
-  const { id } = type;
   const {
+    id,
     title,
     numista_id,
     issuer,
@@ -15,7 +15,7 @@ export const TypeCard = ({ type, onCardClick }) => {
     composition,
     weight,
     size,
-  } = type?.attributes;
+  } = type;
 
   const handleCardClick = useCallback(() => {
     onCardClick(id);
@@ -32,8 +32,7 @@ export const TypeCard = ({ type, onCardClick }) => {
             <View style={styles.imageWrapper}>
               <Image
                 source={{
-                  uri: obverse?.picture?.data?.attributes?.formats?.thumbnail
-                    .url,
+                  uri: obverse?.picture?.formats?.thumbnail.url,
                 }}
                 style={styles.img}
               />
@@ -46,8 +45,7 @@ export const TypeCard = ({ type, onCardClick }) => {
             <View style={styles.imageWrapper}>
               <Image
                 source={{
-                  uri: reverse?.picture?.data?.attributes?.formats?.thumbnail
-                    .url,
+                  uri: reverse?.picture?.formats?.thumbnail.url,
                 }}
                 style={styles.img}
               />
@@ -61,9 +59,7 @@ export const TypeCard = ({ type, onCardClick }) => {
           {numista_id && (
             <Text style={styles.propertyText}>Numista ID: N#{numista_id}</Text>
           )}
-          <Text style={styles.propertyText}>
-            {issuer?.data?.attributes?.name}
-          </Text>
+          <Text style={styles.propertyText}>{issuer?.name}</Text>
           <Text style={styles.propertyText}>
             {kind}
             {series && ": " + series}
