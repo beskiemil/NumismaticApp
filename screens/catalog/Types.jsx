@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { TypeCard } from "../../features/catalog/";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../Loading";
 import * as qs from "qs";
 import Pagination from "../../components/ui/Pagination";
@@ -15,10 +15,7 @@ const Types = ({ route, navigation }) => {
 
   const { get } = useAxios();
   const {
-    data: {
-      data: types,
-      meta: { pagination },
-    },
+    data: types,
     isLoading,
     error,
   } = useQuery({
@@ -46,38 +43,32 @@ const Types = ({ route, navigation }) => {
       return get(`/types?${q}`);
     },
     enabled: !!queryParams,
-    initialData: { data: [], meta: { pagination: {} } },
   });
   // TODO KLIKNIECIE NA TYP Z NUMISTA
-  const onTypeClick = (isNumistaType, id) => {
-    navigation.navigate("Type", { id });
+  const onTypeClick = ({ isNumistaType, id, numista_id }) => {
+    navigation.navigate("Type", { isNumistaType, id, numista_id });
   };
 
   if (isLoading) return <Loading message={"Przeszukujemy katalog..."} />;
   if (error) console.log(error.message, queryParams);
 
-  const listHeader = (
+  const paginationComponent = (
     <View style={styles.listHeaderFooterContainer}>
       <Pagination
         currentPage={page}
         onPageChange={setPage}
-        pageCount={pagination.pageCount}
+        pageCount={types.meta.pagination.pageCount}
       />
     </View>
   );
-  const listFooter = types.length > 1 && (
-    <View style={styles.listHeaderFooterContainer}>
-      <Pagination
-        currentPage={page}
-        onPageChange={setPage}
-        pageCount={pagination.pageCount}
-      />
-    </View>
-  );
+
+  const listHeader = paginationComponent;
+  const listFooter = types.data.length > 1 && paginationComponent;
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={types}
+        data={types.data}
         renderItem={({ item }) => (
           <TypeCard type={item} onCardClick={onTypeClick} />
         )}
@@ -95,11 +86,11 @@ export default Types;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
     flex: 1,
   },
   listContent: {
     width: "100%",
+    paddingVertical: 20,
     paddingHorizontal: "7%",
     gap: 20,
   },

@@ -6,7 +6,7 @@ import { ScrollView, StyleSheet } from "react-native";
 import { TypeDetails } from "../../features/catalog";
 
 export const Type = ({ navigation, route }) => {
-  const { id } = route.params;
+  const { isNumistaType, id, numista_id } = route.params;
   const { get } = useAxios();
 
   const {
@@ -33,6 +33,8 @@ export const Type = ({ navigation, route }) => {
           "value.currency",
         ],
       });
+      if (isNumistaType)
+        return await get(`/types/${numista_id}?isNumistaResult=true`);
       return await get(`/types/${id}?${q}`);
     },
     enabled: !!id,

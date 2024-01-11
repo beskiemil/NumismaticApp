@@ -6,6 +6,7 @@ export const TypeDetails = ({ type }) => {
     id,
     title,
     numista_id,
+    isNumistaType,
     commemorated_topic,
     series,
     issuer,
