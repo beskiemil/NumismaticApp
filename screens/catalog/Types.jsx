@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, View } from "react-native";
-import { TypeCard, TypeSearchForm } from "../../features/catalog/";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { TypeCard } from "../../features/catalog/";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -12,10 +12,6 @@ const Types = ({ route, navigation }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   // TODO: TEKST WPISANY W POLE WYSZUKIWANIA NIE ZOSTAJE ZAPAMIĘTANY
-  const handleSearch = async (queryParams) => {
-    setQueryParams(queryParams);
-    setPage(1);
-  };
 
   const { get } = useAxios();
   const {
@@ -28,9 +24,9 @@ const Types = ({ route, navigation }) => {
   } = useQuery({
     queryKey: ["types", queryParams, page],
     queryFn: () => {
-      const { searchQuery, mint, issuer } = queryParams;
+      console.log("queryParams", queryParams);
       const q = qs.stringify({
-        ...(searchQuery && { q: searchQuery }),
+        ...queryParams,
         populate: [
           "issuer",
           "obverse",
@@ -52,8 +48,8 @@ const Types = ({ route, navigation }) => {
     enabled: !!queryParams,
     initialData: { data: [], meta: { pagination: {} } },
   });
-
-  const onTypeClick = (id) => {
+  // TODO KLIKNIECIE NA TYP Z NUMISTA
+  const onTypeClick = (isNumistaType, id) => {
     navigation.navigate("Type", { id });
   };
 
@@ -62,7 +58,6 @@ const Types = ({ route, navigation }) => {
 
   const listHeader = (
     <View style={styles.listHeaderFooterContainer}>
-      <TypeSearchForm onSubmit={handleSearch} />
       <Pagination
         currentPage={page}
         onPageChange={setPage}
@@ -100,11 +95,12 @@ export default Types;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
   },
   listContent: {
     width: "100%",
-    paddingHorizontal: "10%",
+    paddingHorizontal: "7%",
     gap: 20,
   },
   listHeaderFooterContainer: {

@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   button: {
-    padding: 7,
+    padding: 8,
     aspectRatio: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.primary500,
-    fontSize: 23,
+    fontSize: 22,
   },
   leftArrow: {
     borderTopLeftRadius: 10,
@@ -201,19 +201,3 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
   },
 });
-
-// const classes = classNames(
-//   'flex h-10 w-10 items-center justify-center p-2 border-gray-300 ',
-//   {
-//     'rounded-l-lg  border-b-[2px] border-l-[2px] border-r-0 border-t-[2px] border-solid':
-//     leftArrow,
-//     'rounded-r-lg border-b-[2px] border-l-0 border-r-[2px] border-t-[2px] border-solid':
-//     rightArrow,
-//     'border-b-[2px] border-l-[2px] border-r-0 border-t-[2px] border-solid':
-//     beforeActive,
-//     'border-b-[2px] border-l-0 border-r-0 border-t-[2px] bg-blue-400  text-white border-solid':
-//     active,
-//     'border-b-[2px] border-l-0 border-r-[2px] border-t-[2px] border-solid':
-//     afterActive,
-//   }
-// );

@@ -6,6 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import { Navigation } from "./features/navigation/";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RootSiblingParent } from "react-native-root-siblings";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const queryClient = new QueryClient();
 const Root = () => {
@@ -32,11 +33,14 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <StatusBar style={"light"} />
       {/*For toast display*/}
-      <RootSiblingParent>
-        <AuthContextProvider>
-          <Root />
-        </AuthContextProvider>
-      </RootSiblingParent>
+      {/* eslint-disable-next-line react-native/no-inline-styles */}
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <RootSiblingParent>
+          <AuthContextProvider>
+            <Root />
+          </AuthContextProvider>
+        </RootSiblingParent>
+      </GestureHandlerRootView>
     </QueryClientProvider>
   );
 }

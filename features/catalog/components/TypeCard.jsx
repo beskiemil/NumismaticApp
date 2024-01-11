@@ -5,20 +5,22 @@ import { useCallback } from "react";
 export const TypeCard = ({ type, onCardClick }) => {
   const {
     id,
-    title,
     numista_id,
+    title,
+    isNumistaType,
     issuer,
     reverse,
     obverse,
-    type: kind,
-    series,
-    composition,
-    weight,
-    size,
+    category,
+    min_year,
+    max_year,
+    obverse_thumbnail,
+    reverse_thumbnail,
   } = type;
 
   const handleCardClick = useCallback(() => {
-    onCardClick(id);
+    if (isNumistaType) onCardClick(isNumistaType, numista_id);
+    else onCardClick(isNumistaType, id);
   }, [id, onCardClick]);
 
   return (
@@ -28,47 +30,57 @@ export const TypeCard = ({ type, onCardClick }) => {
           <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.imageRow}>
-          {obverse && (
-            <View style={styles.imageWrapper}>
-              <Image
-                source={{
-                  uri: obverse?.picture?.formats?.thumbnail.url,
-                }}
-                style={styles.img}
-              />
-              <Text style={styles.copyright}>
-                &copy; {obverse.picture_copyright}
-              </Text>
-            </View>
-          )}
-          {reverse && (
-            <View style={styles.imageWrapper}>
-              <Image
-                source={{
-                  uri: reverse?.picture?.formats?.thumbnail.url,
-                }}
-                style={styles.img}
-              />
-              <Text style={styles.copyright}>
-                &copy; {obverse.picture_copyright}
-              </Text>
-            </View>
-          )}
+          {obverse ||
+            (obverse_thumbnail && (
+              <View style={styles.imageWrapper}>
+                <Image
+                  source={{
+                    uri:
+                      obverse_thumbnail ||
+                      obverse?.picture?.formats?.thumbnail.url,
+                  }}
+                  style={styles.img}
+                />
+                {obverse?.picture_copyright && (
+                  <Text style={styles.copyright}>
+                    &copy; {obverse.picture_copyright}
+                  </Text>
+                )}
+              </View>
+            ))}
+          {reverse ||
+            (reverse_thumbnail && (
+              <View style={styles.imageWrapper}>
+                <Image
+                  source={{
+                    uri:
+                      reverse_thumbnail ||
+                      reverse?.picture?.formats?.thumbnail.url,
+                  }}
+                  style={styles.img}
+                />
+                {reverse?.picture_copyright && (
+                  <Text style={styles.copyright}>
+                    &copy; {obverse.picture_copyright}
+                  </Text>
+                )}
+              </View>
+            ))}
         </View>
         <View style={styles.propertiesWrapper}>
           {numista_id && (
             <Text style={styles.propertyText}>Numista ID: N#{numista_id}</Text>
           )}
-          <Text style={styles.propertyText}>{issuer?.name}</Text>
+          <Text style={styles.propertyText}>Emitent: {issuer?.name}</Text>
+          <Text style={styles.propertyText}>Kategoria: {category}</Text>
           <Text style={styles.propertyText}>
-            {kind}
-            {series && ": " + series}
+            Produkcja: {min_year} - {max_year}
           </Text>
-          <Text style={styles.propertyText}>
-            {composition}
-            {weight && ", " + weight + " g"}
-            {size && ", " + size + " mm"}
-          </Text>
+          {/*<Text style={styles.propertyText}>*/}
+          {/*  {composition}*/}
+          {/*  {weight && ", " + weight + " g"}*/}
+          {/*  {size && ", " + size + " mm"}*/}
+          {/*</Text>*/}
         </View>
       </View>
     </Pressable>

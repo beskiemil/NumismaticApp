@@ -2,8 +2,9 @@ import { StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
 import ControlledInput from "../../../components/ui/ControlledInput";
 import PrimaryButton from "../../../components/PrimaryButton";
+import IconButton from "../../../components/IconButton";
 
-export const TypeSearchForm = ({ onSubmit }) => {
+export const TypeSearchForm = ({ onSubmit, handleShowModal }) => {
   const {
     control,
     handleSubmit,
@@ -11,26 +12,40 @@ export const TypeSearchForm = ({ onSubmit }) => {
   } = useForm({
     defaultValues: {
       searchQuery: "",
-      issuer: "",
-      mint: "",
     },
   });
 
   return (
-    <View style={styles.container}>
-      <ControlledInput
-        control={control}
-        name={"searchQuery"}
-        placeholder={"Wyszukaj..."}
-      />
+    <View style={styles.formContainer}>
+      <View style={styles.inputContainer}>
+        <ControlledInput
+          control={control}
+          name={"searchQuery"}
+          placeholder={"Wyszukaj..."}
+        />
+        <IconButton
+          iconFamily={"IonIcons"}
+          name={"filter"}
+          size={24}
+          color={"white"}
+          onPress={handleShowModal}
+        />
+      </View>
       <PrimaryButton text={"Wyszukaj"} onPress={handleSubmit(onSubmit)} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  formContainer: {
     alignItems: "center",
+    width: "100%",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
     width: "100%",
   },
 });
