@@ -10,7 +10,7 @@ export const Type = ({ navigation, route }) => {
   const { get } = useAxios();
 
   const {
-    data: { data: type },
+    data: type,
     isLoading,
     isSuccess,
     error,
@@ -34,11 +34,10 @@ export const Type = ({ navigation, route }) => {
         ],
       });
       if (isNumistaType)
-        return await get(`/types/${numista_id}?isNumistaResult=true`);
+        return await get(`/types/${numista_id}?isNumistaType=${isNumistaType}`);
       return await get(`/types/${id}?${q}`);
     },
     enabled: !!id,
-    initialData: { data: { attributes: {}, meta: {} } },
   });
 
   if (isLoading) return <Loading message={"Ładowanie..."} />;

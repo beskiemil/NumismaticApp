@@ -27,10 +27,6 @@ const Catalog = ({ navigation }) => {
     [],
   );
 
-  const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
   const {
     control,
     handleSubmit,
@@ -77,7 +73,6 @@ const Catalog = ({ navigation }) => {
           ref={bottomSheetModalRef}
           index={0}
           snapPoints={snapPoints}
-          onChange={handleSheetChanges}
           handleStyle={styles.handleStyle}
           style={styles.shadow}
         >
