@@ -2,9 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 
 const useChangePassword = () => {
-  const { post } = useAxios();
+  const { axiosInstance } = useAxios();
   return useMutation({
-    mutationFn: async (data) => await post("/auth/change-password", data),
+    mutationFn: async (data) =>
+      await axiosInstance
+        .post("/auth/change-password", data)
+        .then((res) => res.data),
   });
 };
 

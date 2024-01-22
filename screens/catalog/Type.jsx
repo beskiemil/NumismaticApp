@@ -7,7 +7,7 @@ import { TypeDetails } from "../../features/catalog";
 
 export const Type = ({ navigation, route }) => {
   const { isNumistaType, id, numista_id } = route.params;
-  const { get } = useAxios();
+  const { axiosInstance } = useAxios();
 
   const {
     data: type,
@@ -34,8 +34,12 @@ export const Type = ({ navigation, route }) => {
         ],
       });
       if (isNumistaType)
-        return await get(`/types/${numista_id}?isNumistaType=${isNumistaType}`);
-      return await get(`/types/${id}?${q}`);
+        return await axiosInstance
+          .get(`/types/${numista_id}?isNumistaType=${isNumistaType}`)
+          .then((res) => res.data);
+      return await axiosInstance
+        .get(`/types/${id}?${q}`)
+        .then((res) => res.data);
     },
     enabled: !!id,
   });

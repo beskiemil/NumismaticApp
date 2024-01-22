@@ -1,7 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
 import { TypeImage } from "./TypeImage";
-import { useEffect } from "react";
 
 export const TypeDetails = ({ type }) => {
   if (type.data.isNumistaType) return <NumistaDetails type={type} />;
@@ -155,7 +154,7 @@ const NumismaticDetails = ({ type }) => {
           </View>
           {value?.text && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{value.text}</Text>
+              <Text style={styles.propertyValueText}>{value?.text}</Text>
             </View>
           )}
         </View>
@@ -399,9 +398,9 @@ const NumistaDetails = ({ type }) => {
           <View style={styles.propertyNameWrapper}>
             <Text style={styles.propertyNameText}>Wartość</Text>
           </View>
-          {value.text && (
+          {value?.text && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{value.text}</Text>
+              <Text style={styles.propertyValueText}>{value?.text}</Text>
             </View>
           )}
         </View>
@@ -409,10 +408,10 @@ const NumistaDetails = ({ type }) => {
           <View style={styles.propertyNameWrapper}>
             <Text style={styles.propertyNameText}>Waluta</Text>
           </View>
-          {value.currency.full_name && (
+          {value.currency?.full_name && (
             <View style={styles.propertyValueWrapper}>
               <Text style={styles.propertyValueText}>
-                {value.currency.full_name}
+                {value.currency?.full_name}
               </Text>
             </View>
           )}
@@ -434,9 +433,9 @@ const NumistaDetails = ({ type }) => {
           <View style={styles.propertyNameWrapper}>
             <Text style={styles.propertyNameText}>Skład</Text>
           </View>
-          {composition.text && (
+          {composition?.text && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{composition.text}</Text>
+              <Text style={styles.propertyValueText}>{composition?.text}</Text>
             </View>
           )}
         </View>
@@ -478,9 +477,9 @@ const NumistaDetails = ({ type }) => {
           <View style={styles.propertyNameWrapper}>
             <Text style={styles.propertyNameText}>Technika</Text>
           </View>
-          {technique.text && (
+          {technique?.text && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{technique.text}</Text>
+              <Text style={styles.propertyValueText}>{technique?.text}</Text>
             </View>
           )}
         </View>

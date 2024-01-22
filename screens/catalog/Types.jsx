@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { TypeCard } from "../../features/catalog/";
 import useAxios from "../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loading from "../Loading";
 import * as qs from "qs";
 import Pagination from "../../components/ui/Pagination";
@@ -11,16 +11,15 @@ const Types = ({ route, navigation }) => {
   const [queryParams, setQueryParams] = useState(route.params?.searchParams);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  // TODO: TEKST WPISANY W POLE WYSZUKIWANIA NIE ZOSTAJE ZAPAMIĘTANY
 
-  const { get } = useAxios();
+  const { axiosInstance } = useAxios();
   const {
     data: types,
     isLoading,
     error,
   } = useQuery({
     queryKey: ["types", queryParams, page],
-    queryFn: () => {
+    queryFn: async () => {
       console.log("queryParams", queryParams);
       const q = qs.stringify({
         ...queryParams,
@@ -40,11 +39,10 @@ const Types = ({ route, navigation }) => {
           pageSize,
         },
       });
-      return get(`/types?${q}`);
+      return await axiosInstance.get(`/types?${q}`).then((res) => res.data);
     },
     enabled: !!queryParams,
   });
-  // TODO KLIKNIECIE NA TYP Z NUMISTA
   const onTypeClick = ({ isNumistaType, id, numista_id }) => {
     navigation.navigate("Type", { isNumistaType, id, numista_id });
   };
@@ -57,7 +55,7 @@ const Types = ({ route, navigation }) => {
       <Pagination
         currentPage={page}
         onPageChange={setPage}
-        pageCount={types.meta.pagination.pageCount}
+        pageCount={types?.meta?.pagination?.pageCount}
       />
     </View>
   );
@@ -67,17 +65,26 @@ const Types = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={types.data}
-        renderItem={({ item }) => (
-          <TypeCard type={item} onCardClick={onTypeClick} />
-        )}
-        ListHeaderComponent={listHeader}
-        ListFooterComponent={listFooter}
-        keyExtractor={(item) => item.id}
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
-      />
+      {types && types.data.length > 0 && (
+        <FlatList
+          data={types.data}
+          renderItem={({ item }) => (
+            <TypeCard type={item} onCardClick={onTypeClick} />
+          )}
+          ListHeaderComponent={listHeader}
+          ListFooterComponent={listFooter}
+          keyExtractor={(item) => item.id}
+          style={styles.list}
+          contentContainerStyle={styles.listContent}
+        />
+      )}
+      {types && types.data.length === 0 && (
+        <View style={styles.notFoundContainer}>
+          <Text style={styles.notFoundText}>
+            Nie znaleziono okazów spełniających podane kryteria
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -97,5 +104,14 @@ const styles = StyleSheet.create({
   listHeaderFooterContainer: {
     alignItems: "center",
     gap: 20,
+  },
+  notFoundContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  notFoundText: {
+    fontSize: 18,
+    textAlign: "center",
+    paddingVertical: 20,
   },
 });

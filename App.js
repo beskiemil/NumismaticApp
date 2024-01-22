@@ -10,6 +10,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const queryClient = new QueryClient();
 const Root = () => {
+  //Root component, tutaj sprawdzamy czy użytkownik jest zalogowany, pobierając dane z pamięci urządzenia
   const [isLoading, setIsLoading] = useState(true);
   const authContext = useContext(AuthContext);
 
@@ -25,10 +26,12 @@ const Root = () => {
     fetchUserData();
   }, []);
 
+  //ekran ładowania podczas pobierania danych z pamięci urządzenia
   if (isLoading) return <Loading />;
   return <Navigation />;
 };
 export default function App() {
+  //główny punkt wejścia aplikacji, tutaj renderujemy wszystkie komponenty
   return (
     <QueryClientProvider client={queryClient}>
       <StatusBar style={"light"} />
