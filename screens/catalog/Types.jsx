@@ -13,6 +13,8 @@ const Types = ({ route, navigation }) => {
   const [pageSize, setPageSize] = useState(10);
 
   const { axiosInstance } = useAxios();
+
+  //pobranie listy okazów z API
   const {
     data: types,
     isLoading,
@@ -43,13 +45,17 @@ const Types = ({ route, navigation }) => {
     },
     enabled: !!queryParams,
   });
+
+  //funkcja która wywołuje się po naciśnięciu na kartę okazu, przenosi do ekranu Type i przekazuje parametry okazu
   const onTypeClick = ({ isNumistaType, id, numista_id }) => {
     navigation.navigate("Type", { isNumistaType, id, numista_id });
   };
 
+  //komponent wyświetlany podczas ładowania danych
   if (isLoading) return <Loading message={"Przeszukujemy katalog..."} />;
   if (error) console.log(error.message, queryParams);
 
+  //komponent paginacji
   const paginationComponent = (
     <View style={styles.listHeaderFooterContainer}>
       <Pagination
@@ -66,9 +72,11 @@ const Types = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       {types && types.data.length > 0 && (
+        //wyświetlenie dynamicznej listy okazów
         <FlatList
           data={types.data}
           renderItem={({ item }) => (
+            //wyświetlenie karty okazu
             <TypeCard type={item} onCardClick={onTypeClick} />
           )}
           ListHeaderComponent={listHeader}

@@ -47,7 +47,6 @@ export const TypeSearchForm = ({ onSubmit }) => {
     },
   });
   const handleButtonClick = (values) => {
-    console.log(values);
     if (selectedIssuer) values.issuer = selectedIssuer?.code;
     onSubmit(values);
   };
@@ -68,6 +67,7 @@ export const TypeSearchForm = ({ onSubmit }) => {
               },
             }}
           />
+
           <IconButton
             iconFamily={"IonIcons"}
             name={"filter"}
@@ -82,6 +82,7 @@ export const TypeSearchForm = ({ onSubmit }) => {
         )}
         {filtersVisible && !isLoading && (
           <>
+            {/*Komponent do wyboru emitenta. */}
             <IssuerSelect
               issuers={issuers}
               selectedIssuer={selectedIssuer}

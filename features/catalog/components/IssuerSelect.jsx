@@ -9,12 +9,15 @@ export const IssuerSelect = ({
   selectedIssuer,
   setSelectedIssuer,
 }) => {
+  //komponent - wrapper nad BottomSheetSelect, który jest uniwersalnym komponentem służącym do wyświetlania dużych list na dolnym panelu.
+  //IssuerSelect implementuje takie funkcjonalności jak np. renderowanie sekcji, renderowanie poszczególnych elementów listy
   const bottomSheetSnapPoints = useMemo(() => ["60%"], []);
   return (
     <>
       {issuers?.data.length > 0 && (
         <BottomSheetSelect
           bottomSheetSnapPoints={bottomSheetSnapPoints}
+          // przekształcamy dane z API do formatu, który jest wymagany przez BottomSheetSelect
           options={issuers?.data.map((issuer) => {
             return {
               code: issuer.code,
@@ -33,6 +36,7 @@ export const IssuerSelect = ({
           isSearchable
           textInputPlaceholder={"Wyszukaj emitenta..."}
           emptyListMessage={"Nie znaleziono emitentów"}
+          //funkcja renderująca poszczególne elementy listy
           renderItem={(
             item,
             sectionIdentifier,
@@ -46,6 +50,7 @@ export const IssuerSelect = ({
               expandedSections={expandedSections}
             />
           )}
+          //funkcja renderująca nagłówki sekcji
           renderSectionHeader={(
             section,
             handleSelectItem,
@@ -91,6 +96,7 @@ const ListItem = ({
           }}
         />
       )}
+      {/*Przez to, że dane z api są w sobie zagnieżdżone, rekurencyjnie renderujemy kolejne jednosti emitentów*/}
       {item?.children?.length > 0 &&
         item?.children?.map((child) => (
           <ListItem
@@ -175,26 +181,3 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
   },
 });
-
-// <BottomSheetSelect
-//   options={[
-//     { name: "emitent 1", code: "emitent_1" },
-//     { name: "emitent 2", code: "emitent_2" },
-//     { name: "emitent 3", code: "emitent_3" },
-//     { name: "issuer 1", code: "issuer_1" },
-//     { name: "issuer 2", code: "issuer_2" },
-//     { name: "issuer 3", code: "issuer_3" },
-//   ]}
-//   optionLabel={"name"}
-//   optionValue={"code"}
-//   selectedOption={selectedIssuer}
-//   onSelectOption={(item) => setSelectedIssuer(item)}
-//   isSearchable
-//   textInputPlaceholder={"Wyszukaj emitenta..."}
-//   listKeyExtractor={(item) => item.code}
-//   listItemComponent={(item) => (
-//     <Text>
-//       {item.name} {item.code}
-//     </Text>
-//   )}
-// />

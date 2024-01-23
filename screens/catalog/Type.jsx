@@ -9,6 +9,7 @@ export const Type = ({ navigation, route }) => {
   const { isNumistaType, id, numista_id } = route.params;
   const { axiosInstance } = useAxios();
 
+  //pobranie szczegółów okazu z API
   const {
     data: type,
     isLoading,

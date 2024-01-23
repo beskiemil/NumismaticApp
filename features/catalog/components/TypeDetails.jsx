@@ -3,6 +3,8 @@ import Colors from "../../../constants/colors";
 import { TypeImage } from "./TypeImage";
 
 export const TypeDetails = ({ type }) => {
+  //Wyświetlenie szczegółów okazu
+  //Zaleznie od tego, czy dane pochodzą z wewnętrznej bazy danych czy z API Numista, wyświetlany jest inny komponent
   if (type.data.isNumistaType) return <NumistaDetails type={type} />;
   return <NumismaticDetails type={type} />;
 };
@@ -11,8 +13,6 @@ const NumismaticDetails = ({ type }) => {
   const {
     id,
     title,
-    numista_id,
-    isNumistaType,
     commemorated_topic,
     series,
     issuer,
@@ -31,8 +31,6 @@ const NumismaticDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-    edge,
-    watermark,
   } = type.data;
 
   return (
@@ -257,8 +255,6 @@ const NumistaDetails = ({ type }) => {
   const {
     id,
     title,
-    numista_id,
-    isNumistaType,
     commemorated_topic,
     series,
     issuer,
@@ -277,8 +273,6 @@ const NumistaDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-    edge,
-    watermark,
   } = type.data;
 
   return (

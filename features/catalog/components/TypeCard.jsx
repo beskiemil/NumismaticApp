@@ -3,6 +3,7 @@ import Colors from "../../../constants/colors";
 import { TypeImage } from "./TypeImage";
 import { useCallback } from "react";
 export const TypeCard = ({ type, onCardClick }) => {
+  //Wyświetlenie karty okazu
   const {
     id,
     numista_id,
@@ -57,11 +58,6 @@ export const TypeCard = ({ type, onCardClick }) => {
           <Text style={styles.propertyText}>
             Produkcja: {min_year} - {max_year}
           </Text>
-          {/*<Text style={styles.propertyText}>*/}
-          {/*  {composition}*/}
-          {/*  {weight && ", " + weight + " g"}*/}
-          {/*  {size && ", " + size + " mm"}*/}
-          {/*</Text>*/}
         </View>
       </View>
     </Pressable>
