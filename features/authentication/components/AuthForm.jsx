@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import ControlledInput from "../../../components/ui/ControlledInput";
-import { Checkbox } from "expo-checkbox";
 import Colors from "../../../constants/colors";
 import PrimaryButton from "../../../components/PrimaryButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { ControlledCheckbox } from "../../../components/ui/ControlledCheckbox";
 
 export const AuthForm = ({ isLogin, onSubmit }) => {
   const [agreement, setAgreement] = useState(false);
@@ -18,6 +18,7 @@ export const AuthForm = ({ isLogin, onSubmit }) => {
       email: "",
       password: "",
       confirmPassword: "",
+      agreement: false,
     },
   });
 
@@ -104,20 +105,26 @@ export const AuthForm = ({ isLogin, onSubmit }) => {
 
       {!isLogin && (
         <View style={styles.checkBoxContainer}>
-          <Checkbox
+          <ControlledCheckbox
             value={agreement}
             name={"agreement"}
-            onValueChange={(value) => setAgreement(value)}
+            control={control}
+            rules={{
+              required: "Musisz zaakceptować regulamin",
+            }}
+            label={"*Akceptuję regulamin serwisu"}
             color={Colors.primary500}
+            size={22}
           />
-          <Text>*Akceptuję regulamin serwisu</Text>
         </View>
       )}
 
       <PrimaryButton
         text={isLogin ? "Zaloguj się" : "Zarejestruj się"}
         style={styles.button}
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit((values) => {
+          onSubmit(values);
+        })}
       />
     </View>
   );
