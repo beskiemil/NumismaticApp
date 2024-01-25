@@ -4,6 +4,7 @@ import * as qs from "qs";
 import Loading from "../Loading";
 import { ScrollView, StyleSheet } from "react-native";
 import { TypeDetails } from "../../features/catalog";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export const Type = ({ navigation, route }) => {
   const { isNumistaType, id, numista_id } = route.params;
@@ -45,6 +46,13 @@ export const Type = ({ navigation, route }) => {
     enabled: !!id,
   });
 
+  const handleAddToCollection = () => {
+    navigation.navigate("CollectionRoot", {
+      screen: "AddToCollection",
+      params: { type },
+    });
+  };
+
   if (isLoading) return <Loading message={"Ładowanie..."} />;
   if (error) console.log("id: ", id, "error: ", error);
 
@@ -52,6 +60,10 @@ export const Type = ({ navigation, route }) => {
     return (
       <ScrollView style={styles.view} alwaysBounceVertical={false}>
         <TypeDetails type={type} />
+        <PrimaryButton
+          text={"Dodaj do kolekcji"}
+          onPress={handleAddToCollection}
+        />
       </ScrollView>
     );
 };
@@ -60,6 +72,6 @@ export default Type;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    padding: 20,
+    padding: 30,
   },
 });

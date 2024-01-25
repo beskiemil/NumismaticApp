@@ -4,13 +4,14 @@ import { AuthContext } from "../../authentication";
 import { NavigationContainer } from "@react-navigation/native";
 import Colors from "../../../constants/colors";
 import Home from "../../../screens/Home";
-import Collection from "../../../screens/Collection";
+import Collection from "../../../screens/collection/Collection";
 import Login from "../../../screens/Login";
 import SignUp from "../../../screens/SignUp";
 import { useContext } from "react";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import SettingsNavigator from "./SettingsNavigator";
 import { CatalogNavigator } from "./CatalogNavigator";
+import { CollectionNavigator } from "./CollectionNavigator";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,13 +77,14 @@ const AuthenticatedNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Collection"
-      component={Collection}
+      name="CollectionRoot"
+      component={CollectionNavigator}
       options={{
         title: "Kolekcja",
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="folder-open-outline" size={size} color={color} />
         ),
+        headerShown: false,
       }}
     />
     <Tab.Screen

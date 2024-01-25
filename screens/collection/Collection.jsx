@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const Collection = ({ navigation }) => {
+export const Collection = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Kolekcja</Text>
@@ -15,5 +15,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default Collection;
