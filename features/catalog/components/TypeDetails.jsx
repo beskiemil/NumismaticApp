@@ -34,7 +34,7 @@ const NumismaticDetails = ({ type }) => {
   } = type.data;
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.titleText}>{title}</Text>
       <View style={styles.propertiesWrapper}>
         <View style={styles.imageRow}>
@@ -56,10 +56,10 @@ const NumismaticDetails = ({ type }) => {
         {id && (
           <View style={styles.propertyRowWrapper}>
             <View style={styles.propertyNameWrapper}>
-              <Text style={styles.propertyNameText}>Numista ID</Text>
+              <Text style={styles.propertyNameText}>ID</Text>
             </View>
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>N# {id}</Text>
+              <Text style={styles.propertyValueText}>#{id}</Text>
             </View>
           </View>
         )}
@@ -127,7 +127,7 @@ const NumismaticDetails = ({ type }) => {
           {/*  TODO: MOZE BYC WIECEJ MENNIC!!*/}
           {mints && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{mints?.[0].name}</Text>
+              <Text style={styles.propertyValueText}>{mints?.[0]?.name}</Text>
             </View>
           )}
         </View>
@@ -276,7 +276,7 @@ const NumistaDetails = ({ type }) => {
   } = type.data;
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.titleText}>{title}</Text>
       <View style={styles.propertiesWrapper}>
         <View style={styles.imageRow}>
@@ -369,7 +369,7 @@ const NumistaDetails = ({ type }) => {
           {/*  TODO: MOZE BYC WIECEJ MENNIC!!*/}
           {mints && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{mints?.[0].name}</Text>
+              <Text style={styles.propertyValueText}>{mints?.[0]?.name}</Text>
             </View>
           )}
         </View>
@@ -494,10 +494,6 @@ const NumistaDetails = ({ type }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
   titleText: {
     fontSize: 24,
     color: Colors.primary500,
