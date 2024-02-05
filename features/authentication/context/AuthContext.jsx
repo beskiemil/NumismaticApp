@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 
 export const AuthContext = createContext({
@@ -11,8 +11,22 @@ export const AuthContext = createContext({
 });
 
 export const AuthContextProvider = ({ children }) => {
-  const [authToken, setAuthToken] = useState();
-  const [user, setUser] = useState();
+  const [authToken, setAuthToken] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await SecureStore.getItemAsync("jwt");
+      const user = await SecureStore.getItemAsync("user");
+      if (token) {
+        setAuthToken(token);
+        setUser(JSON.parse(user));
+      }
+      setIsLoading(false);
+    };
+    loadToken();
+  }, []);
 
   const authenticate = async (jwt, userData) => {
     setAuthToken(jwt);
@@ -36,6 +50,7 @@ export const AuthContextProvider = ({ children }) => {
         isAuthenticated: !!authToken,
         authenticate,
         logout,
+        isLoading,
       }}
     >
       {children}
