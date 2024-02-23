@@ -10,9 +10,14 @@ import useAxios from "../../../hooks/useAxios";
 import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../authentication";
 import { useContext } from "react";
+import { Category } from "../../../constants/categories";
+import { useNavigation } from "@react-navigation/native";
 
 export const AddItemForm = ({ type }) => {
-  const grades = type.data.category === "coin" ? coinGrades : banknoteGrades;
+  const navigation = useNavigation();
+  let grades;
+  if (type.category === Category.COIN) grades = coinGrades;
+  else if (type.category === Category.BANKNOTE) grades = banknoteGrades;
 
   const {
     control,
@@ -43,8 +48,8 @@ export const AddItemForm = ({ type }) => {
   const { user } = useContext(AuthContext);
   const onSubmit = async ({ obverse, reverse, ...values }) => {
     values.user = user.id;
-    if (type?.data?.isNumistaType) values.numista_id = type.data.id;
-    else values.type = type.data.id;
+    if (type?.isNumistaType) values.numista_id = type.id;
+    else values.type = type.id;
     const formData = new FormData();
     formData.append("files.obverse", {
       uri: obverse.uri,
@@ -64,6 +69,7 @@ export const AddItemForm = ({ type }) => {
     try {
       await addItem(formData);
       console.log("done");
+      navigation.navigate("MyCollection");
     } catch (err) {
       console.log(err);
     }

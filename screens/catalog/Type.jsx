@@ -48,7 +48,7 @@ export const Type = ({ navigation, route }) => {
 
   const handleAddToCollection = () => {
     navigation.navigate("CollectionRoot", {
-      screen: "AddToCollection",
+      screen: "AddItem",
       params: { type },
     });
   };
@@ -59,7 +59,7 @@ export const Type = ({ navigation, route }) => {
   if (isSuccess)
     return (
       <ScrollView style={styles.view} alwaysBounceVertical={false}>
-        <TypeDetails type={type} />
+        <TypeDetails type={type.data} />
         <PrimaryButton
           text={"Dodaj do kolekcji"}
           onPress={handleAddToCollection}

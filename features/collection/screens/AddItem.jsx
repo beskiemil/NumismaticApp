@@ -1,13 +1,14 @@
 import { StyleSheet, ScrollView } from "react-native";
-import { AddItemForm, ShortDetails } from "../../features/collection";
+import { AddItemForm, ItemDetails } from "../index";
+import { ShortTypeDetails } from "../components/ShortTypeDetails";
 
-export const AddToCollection = ({ navigation, route }) => {
+export const AddItem = ({ navigation, route }) => {
   const { type } = route.params;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ShortDetails type={type} />
-      <AddItemForm type={type} />
+      <ShortTypeDetails type={type.data} />
+      <AddItemForm type={type.data} />
     </ScrollView>
   );
 };

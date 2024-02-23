@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
-import { Collection } from "../../../screens/collection/Collection";
-import { AddToCollection } from "../../../screens/collection/AddToCollection";
+import { Collection } from "../../collection/screens/Collection";
+import { AddItem } from "../../collection/screens/AddItem";
+import { Items } from "../../collection/screens/Items";
 
 const Stack = createNativeStackNavigator();
 export const CollectionNavigator = () => {
@@ -18,12 +19,19 @@ export const CollectionNavigator = () => {
         name="Collection"
         component={Collection}
         options={{
-          title: "Moja kolekcja",
+          title: "Kolekcja",
         }}
       />
       <Stack.Screen
-        name={"AddToCollection"}
-        component={AddToCollection}
+        name="Items"
+        component={Items}
+        options={{
+          title: "Kolekcja",
+        }}
+      />
+      <Stack.Screen
+        name={"AddItem"}
+        component={AddItem}
         options={{
           title: "Dodawanie do kolekcji",
         }}

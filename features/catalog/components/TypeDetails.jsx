@@ -5,7 +5,7 @@ import { TypeImage } from "./TypeImage";
 export const TypeDetails = ({ type }) => {
   //Wyświetlenie szczegółów okazu
   //Zaleznie od tego, czy dane pochodzą z wewnętrznej bazy danych czy z API Numista, wyświetlany jest inny komponent
-  if (type.data.isNumistaType) return <NumistaDetails type={type} />;
+  if (type.isNumistaType) return <NumistaDetails type={type} />;
   return <NumismaticDetails type={type} />;
 };
 
@@ -31,7 +31,7 @@ const NumismaticDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-  } = type.data;
+  } = type;
 
   return (
     <View>
@@ -273,7 +273,7 @@ const NumistaDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-  } = type.data;
+  } = type;
 
   return (
     <View>

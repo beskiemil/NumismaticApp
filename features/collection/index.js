@@ -1,4 +1,5 @@
-import { ShortDetails } from "./components/ShortDetails";
+import { ItemDetails } from "./components/ItemDetails";
 import { AddItemForm } from "./components/AddItemForm";
+import { ItemCard } from "./components/ItemCard";
 
-export { ShortDetails, AddItemForm };
+export { ItemDetails, AddItemForm, ItemCard };
