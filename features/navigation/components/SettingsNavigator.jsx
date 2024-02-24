@@ -1,7 +1,7 @@
 import Colors from "../../../constants/colors";
-import SettingsList from "../../../screens/settings/SettingsList";
-import Account from "../../../screens/settings/Account";
-import Application from "../../../screens/settings/Application";
+import SettingsList from "../../settings/SettingsList";
+import Account from "../../settings/Account";
+import Application from "../../settings/Application";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();

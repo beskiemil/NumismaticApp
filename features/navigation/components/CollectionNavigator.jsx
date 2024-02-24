@@ -1,8 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
-import { Collection } from "../../collection/screens/Collection";
-import { AddItem } from "../../collection/screens/AddItem";
-import { Items } from "../../collection/screens/Items";
+import { Collection, AddItem, Items } from "../../collection/";
 
 const Stack = createNativeStackNavigator();
 export const CollectionNavigator = () => {

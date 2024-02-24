@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 import * as qs from "qs";
-import Loading from "../Loading";
+import Loading from "../../../screens/Loading";
 import { ScrollView, StyleSheet } from "react-native";
-import { TypeDetails } from "../../features/catalog";
-import PrimaryButton from "../../components/PrimaryButton";
+import { TypeDetails } from "../components/TypeDetails";
+import PrimaryButton from "../../../components/PrimaryButton";
 
 export const Type = ({ navigation, route }) => {
   const { isNumistaType, id, numista_id } = route.params;

@@ -6,7 +6,7 @@ import { useContext, useLayoutEffect, useState } from "react";
 import qs from "qs";
 import Pagination from "../../../components/ui/Pagination";
 import Loading from "../../../screens/Loading";
-import { ItemCard } from "../index";
+import { ItemCard } from "../components/ItemCard";
 import Colors from "../../../constants/colors";
 
 export const Items = ({ navigation, route }) => {

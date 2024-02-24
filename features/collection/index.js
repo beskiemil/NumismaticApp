@@ -1,5 +1,5 @@
-import { ItemDetails } from "./components/ItemDetails";
-import { AddItemForm } from "./components/AddItemForm";
-import { ItemCard } from "./components/ItemCard";
+import { AddItem } from "./screens/AddItem";
+import { Collection } from "./screens/Collection";
+import { Items } from "./screens/Items";
 
-export { ItemDetails, AddItemForm, ItemCard };
+export { AddItem, Collection, Items };

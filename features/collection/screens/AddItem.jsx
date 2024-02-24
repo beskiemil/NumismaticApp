@@ -1,5 +1,5 @@
 import { StyleSheet, ScrollView } from "react-native";
-import { AddItemForm, ItemDetails } from "../index";
+import { AddItemForm } from "../components/AddItemForm";
 import { ShortTypeDetails } from "../components/ShortTypeDetails";
 
 export const AddItem = ({ navigation, route }) => {

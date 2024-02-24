@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
-import { TypeSearchForm } from "../../features/catalog";
+import { TypeSearchForm } from "../components/TypeSearchForm";
 
-const Catalog = ({ navigation }) => {
+export const Catalog = ({ navigation }) => {
   //główny ekran zakładki katalog, zawiera formularz wyszukiwania
 
   //funkcja która wywołuje się po naciśnięciu przycisku "Szukaj", przenosi do ekranu Types i przekazuje parametry wyszukiwania
@@ -27,5 +27,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-export default Catalog;

@@ -1,8 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
-import Catalog from "../../../screens/catalog/Catalog";
-import Types from "../../../screens/catalog/Types";
-import Type from "../../../screens/catalog/Type";
+import { Catalog, Types } from "../../catalog";
+import Type from "../../catalog/screens/Type";
 
 const Stack = createNativeStackNavigator();
 export const CatalogNavigator = () => {

@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { PasswordChangeForm } from "../../features/password-change";
+import { PasswordChangeForm } from "../password-change";
 
 const Account = ({ navigation }) => {
   return (

@@ -1,5 +1,5 @@
-import { TypeSearchForm } from "./components/TypeSearchForm";
-import { TypeCard } from "./components/TypeCard";
-import { TypeDetails } from "./components/TypeDetails";
+import { Catalog } from "./screens/Catalog";
+import { Type } from "./screens/Type";
+import { Types } from "./screens/Types";
 
-export { TypeSearchForm, TypeCard, TypeDetails };
+export { Catalog, Type, Types };
