@@ -58,7 +58,7 @@ export const Type = ({ navigation, route }) => {
     navigation.navigate("OffersRoot", {
       screen: "AddOffer",
       initial: false,
-      params: { type: type.data },
+      params: { entity: { type: type.data } },
     });
   };
 

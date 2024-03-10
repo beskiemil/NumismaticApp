@@ -4,14 +4,21 @@ import { AddItemForm } from "../../collection/components/AddItemForm";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../authentication";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { ItemCard } from "../../collection";
 import qs from "qs";
 import { createItemFormData } from "../../collection/helpers/createItemFormData";
 
 export const AddOffer = ({ navigation, route }) => {
-  const [item, setItem] = useState(route?.params?.item || null);
-  const { type } = route.params;
+  //const [item, setItem] = useState(route?.params?.item || null);
+  const item = useMemo(
+    () => route?.params?.entity?.item || null,
+    [route?.params?.entity],
+  );
+  const type = useMemo(
+    () => route?.params?.entity?.type || null,
+    [route?.params?.entity],
+  );
   const queryClient = useQueryClient();
 
   const { axiosInstance } = useAxios();
@@ -36,7 +43,7 @@ export const AddOffer = ({ navigation, route }) => {
     const formData = createItemFormData(values, user, type);
     try {
       const newItem = await addItem(formData).then((res) => res.data);
-      setItem({ ...newItem.data, type });
+      route.params.item = { ...newItem.data, type };
     } catch (err) {
       console.log(err);
     }

@@ -20,7 +20,7 @@ export const ItemCard = ({ item, showAddOfferBadge }) => {
     navigation.navigate("OffersRoot", {
       screen: "AddOffer",
       initial: false,
-      params: { item },
+      params: { entity: { item } },
     });
   };
 
