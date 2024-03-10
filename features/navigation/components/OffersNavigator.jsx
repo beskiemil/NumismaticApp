@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
-import { Catalog, Types } from "../../catalog";
-import Type from "../../catalog/screens/Type";
+import { OffersRoot, AddOffer, Offers } from "../../offers";
 
 const Stack = createNativeStackNavigator();
-export const CatalogNavigator = () => {
+export const OffersNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Catalog"
+      initialRouteName="OffersRoot"
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
@@ -15,24 +14,24 @@ export const CatalogNavigator = () => {
       }}
     >
       <Stack.Screen
-        name="Catalog"
-        component={Catalog}
+        name="OffersCatalog"
+        component={OffersRoot}
         options={{
-          title: "Katalog",
+          title: "Oferty",
         }}
       />
       <Stack.Screen
-        name={"Types"}
-        component={Types}
+        name="Offers"
+        component={Offers}
         options={{
-          title: "Wyniki wyszukiwania",
+          title: "Oferty",
         }}
       />
       <Stack.Screen
-        name={"Type"}
-        component={Type}
+        name="AddOffer"
+        component={AddOffer}
         options={{
-          title: "Szczegóły",
+          title: "Dodaj ofertę",
         }}
       />
     </Stack.Navigator>

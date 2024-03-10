@@ -40,8 +40,6 @@ export const ControlledCheckbox = ({
 const styles = StyleSheet.create({
   checkBoxContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
     gap: 10,
   },
 });

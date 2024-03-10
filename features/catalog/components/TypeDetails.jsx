@@ -5,7 +5,7 @@ import { TypeImage } from "./TypeImage";
 export const TypeDetails = ({ type }) => {
   //Wyświetlenie szczegółów okazu
   //Zaleznie od tego, czy dane pochodzą z wewnętrznej bazy danych czy z API Numista, wyświetlany jest inny komponent
-  if (type.data.isNumistaType) return <NumistaDetails type={type} />;
+  if (type.isNumistaType) return <NumistaDetails type={type} />;
   return <NumismaticDetails type={type} />;
 };
 
@@ -31,10 +31,10 @@ const NumismaticDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-  } = type.data;
+  } = type;
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.titleText}>{title}</Text>
       <View style={styles.propertiesWrapper}>
         <View style={styles.imageRow}>
@@ -56,10 +56,10 @@ const NumismaticDetails = ({ type }) => {
         {id && (
           <View style={styles.propertyRowWrapper}>
             <View style={styles.propertyNameWrapper}>
-              <Text style={styles.propertyNameText}>Numista ID</Text>
+              <Text style={styles.propertyNameText}>ID</Text>
             </View>
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>N# {id}</Text>
+              <Text style={styles.propertyValueText}>#{id}</Text>
             </View>
           </View>
         )}
@@ -127,7 +127,7 @@ const NumismaticDetails = ({ type }) => {
           {/*  TODO: MOZE BYC WIECEJ MENNIC!!*/}
           {mints && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{mints?.[0].name}</Text>
+              <Text style={styles.propertyValueText}>{mints?.[0]?.name}</Text>
             </View>
           )}
         </View>
@@ -273,10 +273,10 @@ const NumistaDetails = ({ type }) => {
     orientation,
     reverse,
     obverse,
-  } = type.data;
+  } = type;
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.titleText}>{title}</Text>
       <View style={styles.propertiesWrapper}>
         <View style={styles.imageRow}>
@@ -369,7 +369,7 @@ const NumistaDetails = ({ type }) => {
           {/*  TODO: MOZE BYC WIECEJ MENNIC!!*/}
           {mints && (
             <View style={styles.propertyValueWrapper}>
-              <Text style={styles.propertyValueText}>{mints?.[0].name}</Text>
+              <Text style={styles.propertyValueText}>{mints?.[0]?.name}</Text>
             </View>
           )}
         </View>
@@ -494,10 +494,6 @@ const NumistaDetails = ({ type }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
   titleText: {
     fontSize: 24,
     color: Colors.primary500,

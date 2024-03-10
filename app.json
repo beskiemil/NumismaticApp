@@ -24,6 +24,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Pozwól Numismatic korzystać z aparatu, aby zrobić zdjęcie okazu.",
+          "photosPermission": "Pozwól Numismatic korzystać z galerii, aby wybrać zdjęcie okazu."
+        }
+      ]
+    ]
   }
 }

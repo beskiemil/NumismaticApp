@@ -1,14 +1,14 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { TypeCard } from "../../features/catalog/";
-import useAxios from "../../hooks/useAxios";
+import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import Loading from "../Loading";
 import * as qs from "qs";
-import Pagination from "../../components/ui/Pagination";
+import { useState } from "react";
+import Pagination from "../../../components/ui/Pagination";
+import Loading from "../../../screens/Loading";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import Colors from "../../../constants/colors";
+import { TypeCard } from "./TypeCard";
 
-const Types = ({ route, navigation }) => {
-  const [queryParams, setQueryParams] = useState(route.params?.searchParams);
+export const TypesList = ({ queryParams, onTypeClick }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
@@ -46,44 +46,65 @@ const Types = ({ route, navigation }) => {
     enabled: !!queryParams,
   });
 
-  //funkcja która wywołuje się po naciśnięciu na kartę okazu, przenosi do ekranu Type i przekazuje parametry okazu
-  const onTypeClick = ({ isNumistaType, id, numista_id }) => {
-    navigation.navigate("Type", { isNumistaType, id, numista_id });
-  };
-
   //komponent wyświetlany podczas ładowania danych
   if (isLoading) return <Loading message={"Przeszukujemy katalog..."} />;
   if (error) console.log(error.message, queryParams);
 
   //komponent paginacji
-  const paginationComponent = (
-    <View style={styles.listHeaderFooterContainer}>
+  const paginationComponent =
+    (types?.meta?.pagination?.pageCount > 1 && (
       <Pagination
         currentPage={page}
         onPageChange={setPage}
         pageCount={types?.meta?.pagination?.pageCount}
       />
-    </View>
-  );
-
-  const listHeader = paginationComponent;
-  const listFooter = types.data.length > 1 && paginationComponent;
-
+    )) ||
+    null;
   return (
-    <View style={styles.container}>
+    <>
       {types && types.data.length > 0 && (
         //wyświetlenie dynamicznej listy okazów
         <FlatList
           data={types.data}
-          renderItem={({ item }) => (
+          renderItem={({ item: type, index }) => (
             //wyświetlenie karty okazu
-            <TypeCard type={item} onCardClick={onTypeClick} />
+
+            <View
+              style={[
+                { borderColor: Colors.primary400 },
+                // eslint-disable-next-line react-native/no-inline-styles
+                index < types.data.length - 1 && {
+                  borderBottomWidth: 2,
+                  paddingBottom: 20,
+                  marginBottom: 20,
+                },
+              ]}
+            >
+              <Pressable
+                onPress={() =>
+                  onTypeClick({
+                    isNumistaType: type.isNumistaType,
+                    id: type.id,
+                    numista_id: type.numista_id,
+                  })
+                }
+              >
+                <TypeCard type={type} />
+              </Pressable>
+            </View>
           )}
-          ListHeaderComponent={listHeader}
-          ListFooterComponent={listFooter}
+          ListHeaderComponent={
+            <View style={styles.listHeaderContainer}>
+              {paginationComponent}
+            </View>
+          }
+          ListFooterComponent={
+            <View style={styles.listFooterContainer}>
+              {paginationComponent}
+            </View>
+          }
           keyExtractor={(item) => item.id}
           style={styles.list}
-          contentContainerStyle={styles.listContent}
         />
       )}
       {types && types.data.length === 0 && (
@@ -93,25 +114,18 @@ const Types = ({ route, navigation }) => {
           </Text>
         </View>
       )}
-    </View>
+    </>
   );
 };
 
-export default Types;
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  listContent: {
-    width: "100%",
-    paddingVertical: 20,
-    paddingHorizontal: "7%",
-    gap: 20,
-  },
-  listHeaderFooterContainer: {
+  listHeaderContainer: {
     alignItems: "center",
-    gap: 20,
+    marginBottom: 20,
+  },
+  listFooterContainer: {
+    alignItems: "center",
+    marginTop: 20,
   },
   notFoundContainer: {
     flex: 1,

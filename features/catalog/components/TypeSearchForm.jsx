@@ -31,6 +31,8 @@ export const TypeSearchForm = ({ onSubmit }) => {
       await axiosInstance.get(`/issuers/nested`).then((res) => res.data),
   });
 
+  if (error) console.log(error);
+
   const [selectedIssuer, setSelectedIssuer] = useState(null);
 
   //hook odpowiedzialny za zarządzanie formularzem wyszukiwania
@@ -93,7 +95,12 @@ export const TypeSearchForm = ({ onSubmit }) => {
               <ControlledSelect
                 name={"category"}
                 control={control}
-                placeholder={"Kategoria"}
+                options={[
+                  { label: "Moneta", value: "coin" },
+                  { label: "Banknot", value: "banknote" },
+                  { label: "Egzonumia", value: "exonumia" },
+                ]}
+                placeholder={"Wybierz kategorię"}
                 color={Colors.primary500}
                 arrowColor={Colors.primary400}
               />

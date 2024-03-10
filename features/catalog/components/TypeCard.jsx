@@ -1,90 +1,89 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
-import { TypeImage } from "./TypeImage";
-import { useCallback } from "react";
-export const TypeCard = ({ type, onCardClick }) => {
+import { CoinImage } from "../../../components/CoinImage";
+import { Label, Row, Value } from "../../../components/ui/PropertyComponents";
+export const TypeCard = ({ type }) => {
   //Wyświetlenie karty okazu
-  const {
-    id,
-    numista_id,
-    title,
-    isNumistaType,
-    issuer,
-    reverse,
-    obverse,
-    category,
-    min_year,
-    max_year,
-    obverse_thumbnail,
-    reverse_thumbnail,
-  } = type;
-
-  const handleCardClick = useCallback(() => {
-    onCardClick({ isNumistaType, id, numista_id });
-  }, [id, onCardClick, isNumistaType, numista_id]);
 
   return (
-    <Pressable onPress={handleCardClick}>
-      <View style={styles.card}>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
-        <View style={styles.imageRow}>
-          {isNumistaType && obverse_thumbnail && (
-            <TypeImage pictureUrl={obverse_thumbnail} />
-          )}
-          {isNumistaType && reverse_thumbnail && (
-            <TypeImage pictureUrl={reverse_thumbnail} />
-          )}
-          {!isNumistaType && obverse && (
-            <TypeImage
-              pictureUrl={obverse?.picture?.formats?.thumbnail.url}
-              pictureCopyright={obverse?.picture?.copyright}
-            />
-          )}
-          {!isNumistaType && reverse && (
-            <TypeImage
-              pictureUrl={reverse?.picture?.formats?.thumbnail.url}
-              pictureCopyright={obverse?.picture?.copyright}
-            />
-          )}
-        </View>
-        <View style={styles.propertiesWrapper}>
-          {numista_id && (
-            <Text style={styles.propertyText}>Numista ID: N#{numista_id}</Text>
-          )}
-          <Text style={styles.propertyText}>Emitent: {issuer?.name}</Text>
-          <Text style={styles.propertyText}>Kategoria: {category}</Text>
-          <Text style={styles.propertyText}>
-            Produkcja: {min_year} - {max_year}
-          </Text>
-        </View>
+    <View style={styles.container}>
+      <View style={styles.propertiesContainer}>
+        <Row>
+          <Text style={styles.title}>{type.title}</Text>
+        </Row>
+        {type.isNumistaType ? (
+          <Row>
+            <Label>Numista ID: </Label>
+            <Value>N# {type.id}</Value>
+          </Row>
+        ) : (
+          <Row>
+            <Label>ID: </Label>
+            <Value>#{type.id}</Value>
+          </Row>
+        )}
+        <Row>
+          <Label>Kategoria: </Label>
+          <Value>{type.category}</Value>
+        </Row>
+        {type.issuer && (
+          <Row>
+            <Label>Emitent: </Label>
+            <Value>{type.issuer?.name}</Value>
+          </Row>
+        )}
+        {type.min_year && (
+          <Row>
+            <Label>Lata: </Label>
+            <Value>
+              {type?.min_year} - {type?.max_year}
+            </Value>
+          </Row>
+        )}
       </View>
-    </Pressable>
+      <View style={styles.imagesContainer}>
+        {!type.isNumistaType && type.obverse && (
+          <CoinImage url={type.obverse?.picture?.formats?.thumbnail?.url} />
+        )}
+        {!type.isNumistaType && type.reverse && (
+          <CoinImage url={type.reverse?.picture?.formats?.thumbnail?.url} />
+        )}
+        {type.isNumistaType && type.obverse_thumbnail && (
+          <CoinImage url={type.obverse_thumbnail} />
+        )}
+        {type.isNumistaType && type.reverse_thumbnail && (
+          <CoinImage url={type.reverse_thumbnail} />
+        )}
+        {type.isNumistaType && type?.obverse?.thumbnail && (
+          <CoinImage url={type?.obverse?.thumbnail} />
+        )}
+        {type.isNumistaType && type?.reverse?.thumbnail && (
+          <CoinImage url={type.reverse?.thumbnail} />
+        )}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: Colors.primary500,
-    gap: 5,
-    minHeight: 250,
-    borderRadius: 15,
-    padding: 25,
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
+    paddingHorizontal: 10,
   },
   title: {
-    color: "white",
-    fontSize: 24,
+    fontSize: 21,
+    fontWeight: "400",
+    color: Colors.primary500,
   },
-  imageRow: {
-    width: "100%",
-    flexDirection: "row",
+  propertiesContainer: {
+    flex: 5,
     justifyContent: "center",
   },
-  propertiesWrapper: {
-    gap: 2,
-  },
-  propertyText: {
-    color: "white",
+  imagesContainer: {
+    flex: 2,
+    gap: 5,
+    justifyContent: "center",
   },
 });
