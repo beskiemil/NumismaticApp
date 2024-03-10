@@ -49,7 +49,16 @@ export const Type = ({ navigation, route }) => {
   const handleAddToCollection = () => {
     navigation.navigate("CollectionRoot", {
       screen: "AddItem",
-      params: { type },
+      initial: false,
+      params: { type: type.data },
+    });
+  };
+
+  const handleAddOffer = () => {
+    navigation.navigate("OffersRoot", {
+      screen: "AddOffer",
+      initial: false,
+      params: { type: type.data },
     });
   };
 
@@ -58,11 +67,18 @@ export const Type = ({ navigation, route }) => {
 
   if (isSuccess)
     return (
-      <ScrollView style={styles.view} alwaysBounceVertical={false}>
+      <ScrollView
+        contentContainerStyle={styles.view}
+        alwaysBounceVertical={false}
+      >
         <TypeDetails type={type.data} />
         <PrimaryButton
           text={"Dodaj do kolekcji"}
           onPress={handleAddToCollection}
+        />
+        <PrimaryButton
+          text={"Dodaj ofertę innego sprzedawcy"}
+          onPress={handleAddOffer}
         />
       </ScrollView>
     );
@@ -71,7 +87,7 @@ export default Type;
 
 const styles = StyleSheet.create({
   view: {
-    flex: 1,
-    padding: 30,
+    padding: 20,
+    gap: 10,
   },
 });

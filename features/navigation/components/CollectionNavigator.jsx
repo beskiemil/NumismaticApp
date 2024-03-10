@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
 import { Collection, AddItem, Items } from "../../collection/";
+import { Users } from "../../users";
 
 const Stack = createNativeStackNavigator();
 export const CollectionNavigator = () => {
@@ -11,6 +12,7 @@ export const CollectionNavigator = () => {
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
         headerTitleAlign: "center",
+        headerBackButtonMenuEnabled: true,
       }}
     >
       <Stack.Screen
@@ -32,6 +34,13 @@ export const CollectionNavigator = () => {
         component={AddItem}
         options={{
           title: "Dodawanie do kolekcji",
+        }}
+      />
+      <Stack.Screen
+        name={"Users"}
+        component={Users}
+        options={{
+          title: "Wyszukaj użytkownika",
         }}
       />
     </Stack.Navigator>

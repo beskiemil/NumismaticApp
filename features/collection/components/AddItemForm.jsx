@@ -2,78 +2,24 @@ import { StyleSheet, View } from "react-native";
 import { ImagePicker } from "../../../components/ImagePicker";
 import { ControlledSelect } from "../../../components/ui/ControlledSelect";
 import Colors from "../../../constants/colors";
-import { ControlledCheckbox } from "../../../components/ui/ControlledCheckbox";
 import PrimaryButton from "../../../components/PrimaryButton";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
 import { useForm } from "react-hook-form";
-import useAxios from "../../../hooks/useAxios";
-import { useMutation } from "@tanstack/react-query";
-import { AuthContext } from "../../authentication";
-import { useContext } from "react";
 import { Category } from "../../../constants/categories";
-import { useNavigation } from "@react-navigation/native";
 
-export const AddItemForm = ({ type }) => {
-  const navigation = useNavigation();
-  let grades;
-  if (type.category === Category.COIN) grades = coinGrades;
-  else if (type.category === Category.BANKNOTE) grades = banknoteGrades;
+export const AddItemForm = ({ type, onSubmit }) => {
+  const grades =
+    type.category === Category.COIN || type.category === Category.EXONUMIA
+      ? coinGrades
+      : banknoteGrades;
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       grade: null,
       obverse: null,
       reverse: null,
-      toChange: false,
-      toSell: false,
     },
   });
-
-  const { axiosInstance } = useAxios();
-  const { mutateAsync: addItem } = useMutation({
-    mutationFn: async (formData) =>
-      await axiosInstance.post("/items", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }),
-    onError: (error, variables, context) => {},
-    onSuccess: (data, variables, context) => {},
-  });
-
-  const { user } = useContext(AuthContext);
-  const onSubmit = async ({ obverse, reverse, ...values }) => {
-    values.user = user.id;
-    if (type?.isNumistaType) values.numista_id = type.id;
-    else values.type = type.id;
-    const formData = new FormData();
-    formData.append("files.obverse", {
-      uri: obverse.uri,
-      type: "image/jpeg",
-      name: `${user.id}_${Date.now().toString()}_${obverse.uri
-        .split("/")
-        .pop()}`,
-    });
-    formData.append("files.reverse", {
-      uri: reverse.uri,
-      type: "image/jpeg",
-      name: `${user.id}_${Date.now().toString()}_${reverse.uri
-        .split("/")
-        .pop()}`,
-    });
-    formData.append("data", JSON.stringify(values));
-    try {
-      await addItem(formData);
-      console.log("done");
-      navigation.navigate("MyCollection");
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <>
@@ -103,20 +49,6 @@ export const AddItemForm = ({ type }) => {
         rules={{ required: "Wybierz stan zachowania monety" }}
         color={Colors.primary500}
         arrowColor={Colors.primary500}
-      />
-      <ControlledCheckbox
-        control={control}
-        name={"toChange"}
-        label={"Chcę się zamienić"}
-        color={Colors.primary500}
-        size={24}
-      />
-      <ControlledCheckbox
-        control={control}
-        name={"toSell"}
-        label={"Chcę sprzedać"}
-        color={Colors.primary500}
-        size={24}
       />
       <PrimaryButton
         onPress={handleSubmit((values) => onSubmit(values))}

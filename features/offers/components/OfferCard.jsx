@@ -5,24 +5,19 @@ import Colors from "../../../constants/colors";
 import { Category } from "../../../constants/categories";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
 import { Badge } from "../../../components/ui/Badge";
-import { CommonActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { traderTypes } from "../constants/traderTypes";
 
-export const ItemCard = ({ item, showAddOfferBadge }) => {
+export const OfferCard = ({ offer }) => {
   const navigation = useNavigation();
-
-  const { type } = item;
+  const {
+    item: { type, ...item },
+  } = offer;
 
   const grade =
     type.category === Category.COIN || type.category === Category.EXONUMIA
       ? coinGrades.find((g) => g.value === item.grade)
       : banknoteGrades.find((g) => g.value === item.grade);
-  const addOffer = () => {
-    navigation.navigate("OffersRoot", {
-      screen: "AddOffer",
-      initial: false,
-      params: { item },
-    });
-  };
 
   return (
     <View style={styles.container}>
@@ -69,14 +64,25 @@ export const ItemCard = ({ item, showAddOfferBadge }) => {
           <Label>Stan: </Label>
           <Value>{grade.label}</Value>
         </Row>
+        <Row>
+          <Label>Sprzedawca: </Label>
+          <Value>
+            {offer.trader_type === traderTypes.USER
+              ? offer?.item?.user?.username
+              : offer.trader}
+          </Value>
+        </Row>
+        <Row>
+          <Label>Opis oferty: </Label>
+          <Value>{offer.description}</Value>
+        </Row>
+        <Row>
+          <Label>Cena: </Label>
+          <Value>{offer.price} zł</Value>
+        </Row>
 
         <Row>
           <Badge color={Colors.primary300}>Szczegóły</Badge>
-          {showAddOfferBadge && (
-            <Badge color={Colors.primary300} onPress={addOffer}>
-              Dodaj ofertę
-            </Badge>
-          )}
         </Row>
       </View>
 

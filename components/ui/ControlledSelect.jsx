@@ -22,6 +22,7 @@ export const ControlledSelect = ({
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <>
             <RNPickerSelect
+              value={value}
               onValueChange={(value) => onChange(value)}
               items={options ? [...options] : []}
               style={{
@@ -62,7 +63,6 @@ export const ControlledSelect = ({
 const styles = StyleSheet.create({
   container: {
     width: 250,
-    alignSelf: "flex-start",
   },
   errorMessage: {
     textAlign: "right",
@@ -85,6 +85,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Colors.white,
     letterSpacing: 1,
+    color: "black",
   },
   // eslint-disable-next-line react-native/no-unused-styles
   inputAndroid: {
@@ -95,6 +96,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Colors.white,
     letterSpacing: 1,
+    color: "black",
   },
   // eslint-disable-next-line react-native/no-unused-styles,react-native/no-color-literals
   placeholder: {

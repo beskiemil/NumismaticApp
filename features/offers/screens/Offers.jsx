@@ -1,24 +1,16 @@
-import { StyleSheet, Text, View } from "react-native";
-import PrimaryButton from "../../../components/PrimaryButton";
-import { AuthContext } from "../../authentication";
-import { useContext } from "react";
+import { View, StyleSheet } from "react-native";
+import { OffersList } from "../components/OffersList";
 
-export const Offers = ({ navigation }) => {
-  const { user } = useContext(AuthContext);
+export const Offers = ({ navigation, route }) => {
+  const { user } = route.params;
   return (
-    <View style={styles.container}>
-      <PrimaryButton
-        text={"Moje oferty"}
-        onPress={() => navigation.navigate("Offers", { user })}
-      />
-    </View>
+    <View style={styles.container}>{user && <OffersList user={user} />}</View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 20,
   },
 });

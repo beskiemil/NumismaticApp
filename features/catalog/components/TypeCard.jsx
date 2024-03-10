@@ -54,6 +54,12 @@ export const TypeCard = ({ type }) => {
         {type.isNumistaType && type.reverse_thumbnail && (
           <CoinImage url={type.reverse_thumbnail} />
         )}
+        {type.isNumistaType && type?.obverse?.thumbnail && (
+          <CoinImage url={type?.obverse?.thumbnail} />
+        )}
+        {type.isNumistaType && type?.reverse?.thumbnail && (
+          <CoinImage url={type.reverse?.thumbnail} />
+        )}
       </View>
     </View>
   );
