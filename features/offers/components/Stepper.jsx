@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import Colors from "../../../constants/colors";
 
 export const Stepper = ({ currentStep, steps, onBack, onNext, onFinish }) => {

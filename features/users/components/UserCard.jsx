@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Avatar } from "./Avatar";
-import { Badge } from "../../../components/ui/Badge";
+import { Badge } from "../../../components/buttons/Badge";
 import { useNavigation } from "@react-navigation/native";
 
 export const UserCard = ({ user }) => {

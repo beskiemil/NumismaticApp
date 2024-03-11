@@ -4,7 +4,7 @@ import {
   useCameraPermissions,
   PermissionStatus,
 } from "expo-image-picker";
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 import { Feather, Ionicons } from "@expo/vector-icons";
 import { Controller } from "react-hook-form";
 

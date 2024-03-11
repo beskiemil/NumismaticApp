@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
-import Colors from "../../constants/colors";
+import Colors from "../constants/colors";
 
 export const Pagination = ({ pageCount, onPageChange, currentPage }) => {
   const pageNumbers = Array.from(

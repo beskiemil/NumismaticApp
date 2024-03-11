@@ -11,7 +11,7 @@ export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
     else navigation.replace("Login");
   };
 
-  const onSubmit = (data) => {
+  const handleSubmit = (data) => {
     let { username, email, password, confirmPassword, agreement } = data;
     if (isLogin) {
       onAuthenticate({ identifier: email, password });
@@ -29,7 +29,7 @@ export const AuthContent = ({ isLogin, onAuthenticate, requestError }) => {
       keyboardDismissMode={"on-drag"}
       bounces={false}
     >
-      <AuthForm isLogin={isLogin} onSubmit={onSubmit} />
+      <AuthForm isLogin={isLogin} onSubmit={handleSubmit} />
       {requestError && (
         <Text style={styles.requestErrorMessage}>{requestError}</Text>
       )}

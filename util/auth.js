@@ -1,4 +1,6 @@
 import axios from "axios";
+import Toast from "react-native-root-toast";
+import Colors from "../constants/colors";
 
 const loginURL = `${process.env.EXPO_PUBLIC_API_URL}/auth/local`;
 const signupURL = `${process.env.EXPO_PUBLIC_API_URL}/auth/local/register`;
@@ -38,6 +40,7 @@ export const login = async (identifier, password) => {
   } catch (err) {
     if (err.response) {
       console.error("Login response error: ", err.response);
+
       if (err.response.data.error.message === "Invalid identifier or password")
         return Promise.reject(new Error("Nieprawidłowe dane logowania"));
       else if (

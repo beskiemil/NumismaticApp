@@ -1,18 +1,17 @@
-import { View, StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { UsersList } from "../components/UsersList";
+import { Screen } from "../../../components/screen";
 
 export const Users = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <UsersList />
-    </View>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
     alignItems: "center",
   },
 });

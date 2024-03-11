@@ -2,7 +2,7 @@ import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import * as qs from "qs";
 import { useState } from "react";
-import Pagination from "../../../components/ui/Pagination";
+import Pagination from "../../../components/Pagination";
 import Loading from "../../../screens/Loading";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
@@ -22,7 +22,6 @@ export const TypesList = ({ queryParams, onTypeClick }) => {
   } = useQuery({
     queryKey: ["types", queryParams, page],
     queryFn: async () => {
-      console.log("queryParams", queryParams);
       const q = qs.stringify({
         ...queryParams,
         populate: [

@@ -1,35 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
-import Heading from "../../../components/ui/Heading";
+import { StyleSheet, View } from "react-native";
+import { Heading } from "../../../components/Heading";
 import { useForm } from "react-hook-form";
-import ControlledInput from "../../../components/ui/ControlledInput";
-import PrimaryButton from "../../../components/PrimaryButton";
-import useChangePassword from "../hooks/useChangePassword";
+import ControlledInput from "../../../components/forms/ControlledInput";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import Loading from "../../../screens/Loading";
-import { useState } from "react";
 import Colors from "../../../constants/colors";
-import Toast from "react-native-root-toast";
+import { showToast } from "../../../helpers/showToast";
+import useAxios from "../../../hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
 
-const PasswordChangeForm = ({ navigation }) => {
-  const { mutateAsync, isPending } = useChangePassword();
-  const [responseError, setResponseError] = useState(null);
+export const PasswordChangeForm = ({ navigation }) => {
+  const { axiosInstance } = useAxios();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (data) =>
+      await axiosInstance
+        .post("/auth/change-password", data)
+        .then((res) => res.data),
+  });
   const onSubmit = async (data) => {
     try {
       await mutateAsync(data);
-      let toast = Toast.show("Hasło zostało zmienione", {
-        duration: Toast.durations.LONG,
-        position: Toast.positions.TOP + 30,
-        backgroundColor: Colors.success500,
-        shadow: true,
-        animation: true,
-        hideOnPress: true,
-        delay: 0,
-      });
+      showToast({ message: "Zmieniono hasło", type: "success" });
       navigation.popToTop();
     } catch (error) {
       if (error.response) {
         let err = error.response.data.error.message;
-        console.log(err);
-        setResponseError(err);
+        showToast({ message: err, type: "error" });
       }
     }
   };
@@ -49,7 +46,7 @@ const PasswordChangeForm = ({ navigation }) => {
   if (isPending) return <Loading message={"Zmieniamy hasło..."} />;
 
   return (
-    <View style={styles.container}>
+    <>
       <Heading text="Zmiana hasła" />
       <View style={styles.formContainer}>
         <ControlledInput
@@ -106,26 +103,19 @@ const PasswordChangeForm = ({ navigation }) => {
           secureTextEntry={true}
           autoComplete="password"
         />
-        <PrimaryButton text={"Zmień hasło"} onPress={handleSubmit(onSubmit)} />
+
         {/*TODO:ADD ERROR TRANSLATION*/}
-        {responseError && <Text style={styles.error}>{responseError}</Text>}
       </View>
-    </View>
+      <PrimaryButton text={"Zmień hasło"} onPress={handleSubmit(onSubmit)} />
+    </>
   );
 };
-export default PasswordChangeForm;
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flex: 1,
-    alignItems: "center",
-  },
-  formContainer: {
-    gap: 15,
-    width: "60%",
-  },
   error: {
     color: Colors.danger500,
+  },
+  formContainer: {
+    alignSelf: "center",
   },
 });

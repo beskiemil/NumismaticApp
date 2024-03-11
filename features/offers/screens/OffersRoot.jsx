@@ -1,5 +1,5 @@
-import { StyleSheet, View } from "react-native";
-import PrimaryButton from "../../../components/PrimaryButton";
+import { StyleSheet } from "react-native";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import {
   InfoBanner,
   InfoBannerContent,
@@ -7,12 +7,13 @@ import {
 } from "../components/InfoBanner";
 import { useContext } from "react";
 import { AuthContext } from "../../authentication";
+import { Screen } from "../../../components/screen";
 
 export const OffersRoot = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   console.log(navigation.getState());
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       <InfoBanner>
         <InfoBannerTitle>Dodawanie ofert</InfoBannerTitle>
         {/* eslint-disable-next-line react-native/no-raw-text */}
@@ -27,15 +28,12 @@ export const OffersRoot = ({ navigation }) => {
         text={"Moje oferty"}
         onPress={() => navigation.navigate("Offers", { user })}
       />
-    </View>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 20,
     justifyContent: "space-around",
-    alignItems: "center",
   },
 });

@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import { CoinImage } from "../../../components/CoinImage";
-import { Label, Row, Value } from "../../../components/ui/PropertyComponents";
+import { Label, Row, Value } from "../../../components/PropertyComponents";
 import Colors from "../../../constants/colors";
 import { Category } from "../../../constants/categories";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
-import { Badge } from "../../../components/ui/Badge";
+import { Badge } from "../../../components/buttons/Badge";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 
 export const ItemCard = ({ item, showAddOfferBadge }) => {

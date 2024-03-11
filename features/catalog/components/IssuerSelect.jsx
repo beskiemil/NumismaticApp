@@ -1,5 +1,5 @@
 import { Pressable, Text, View, StyleSheet } from "react-native";
-import { BottomSheetSelect } from "../../../components/ui/BottomSheetSelect";
+import { BottomSheetSelect } from "../../../components/forms/BottomSheetSelect";
 import { MaterialIcons } from "@expo/vector-icons";
 import Colors from "../../../constants/colors";
 import { useMemo } from "react";

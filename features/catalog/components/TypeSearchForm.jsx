@@ -1,17 +1,17 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useForm } from "react-hook-form";
-import ControlledInput from "../../../components/ui/ControlledInput";
-import PrimaryButton from "../../../components/PrimaryButton";
-import IconButton from "../../../components/IconButton";
-import { ControlledCheckbox } from "../../../components/ui/ControlledCheckbox";
+import ControlledInput from "../../../components/forms/ControlledInput";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import { IconButton } from "../../../components/buttons/IconButton";
+import { ControlledCheckbox } from "../../../components/forms/ControlledCheckbox";
 import Colors from "../../../constants/colors";
 import { useState } from "react";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { IssuerSelect } from "./IssuerSelect";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import LoadingComponent from "../../../components/ui/LoadingComponent";
-import { ControlledSelect } from "../../../components/ui/ControlledSelect";
+import LoadingComponent from "../../../components/LoadingComponent";
+import { ControlledSelect } from "../../../components/forms/ControlledSelect";
 
 export const TypeSearchForm = ({ onSubmit }) => {
   const [filtersVisible, setFiltersVisible] = useState(false);

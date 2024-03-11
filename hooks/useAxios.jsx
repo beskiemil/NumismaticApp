@@ -33,7 +33,6 @@ const useAxios = () => {
           hideOnPress: true,
           delay: 0,
         });
-        console.log("Session expired. Logged out.");
         logout();
       }
       return Promise.reject(error);
