@@ -2,10 +2,10 @@ import { useForm } from "react-hook-form";
 import { traderTypes, traderTypesOptions } from "../constants/traderTypes";
 import { View, StyleSheet } from "react-native";
 import Colors from "../../../constants/colors";
-import { ControlledSelect } from "../../../components/ui/ControlledSelect";
-import ControlledInput from "../../../components/ui/ControlledInput";
-import { ControlledCheckbox } from "../../../components/ui/ControlledCheckbox";
-import PrimaryButton from "../../../components/PrimaryButton";
+import { ControlledSelect } from "../../../components/forms/ControlledSelect";
+import ControlledInput from "../../../components/forms/ControlledInput";
+import { ControlledCheckbox } from "../../../components/forms/ControlledCheckbox";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { useNavigation } from "@react-navigation/native";
 
 export const AddOfferForm = ({ item, user, onSubmit }) => {

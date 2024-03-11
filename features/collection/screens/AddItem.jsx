@@ -1,4 +1,3 @@
-import { StyleSheet, ScrollView, Text } from "react-native";
 import { AddItemForm } from "../components/AddItemForm";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -6,6 +5,7 @@ import { AuthContext } from "../../authentication";
 import { useContext } from "react";
 import { createItemFormData } from "../helpers/createItemFormData";
 import { TypeCard } from "../../catalog/components/TypeCard";
+import { ScrollScreen } from "../../../components/screen";
 
 export const AddItem = ({ navigation, route }) => {
   const { type } = route.params;
@@ -41,24 +41,13 @@ export const AddItem = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {type ? (
+    <ScrollScreen>
+      {type && (
         <>
           <TypeCard type={type} />
           <AddItemForm type={type} onSubmit={handleFormSubmit} />
         </>
-      ) : (
-        <Text>Wybierz okaz</Text>
       )}
-    </ScrollView>
+    </ScrollScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    gap: 20,
-  },
-});

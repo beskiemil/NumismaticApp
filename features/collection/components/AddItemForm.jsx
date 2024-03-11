@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
-import { ImagePicker } from "../../../components/ImagePicker";
-import { ControlledSelect } from "../../../components/ui/ControlledSelect";
+import { ImagePicker } from "../../../components/forms/ImagePicker";
+import { ControlledSelect } from "../../../components/forms/ControlledSelect";
 import Colors from "../../../constants/colors";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
 import { useForm } from "react-hook-form";
 import { Category } from "../../../constants/categories";

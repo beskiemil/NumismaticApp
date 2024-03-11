@@ -1,9 +1,9 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Colors from "../../constants/colors";
-import { AuthContext } from "../authentication";
+import Colors from "../../../constants/colors";
+import { AuthContext } from "../../authentication";
 import { useContext } from "react";
 
-const SettingsList = ({ navigation }) => {
+export const Settings = ({ navigation }) => {
   const { logout } = useContext(AuthContext);
 
   return (
@@ -43,5 +43,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-
-export default SettingsList;

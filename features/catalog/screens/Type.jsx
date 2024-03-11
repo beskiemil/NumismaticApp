@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../hooks/useAxios";
 import * as qs from "qs";
 import Loading from "../../../screens/Loading";
-import { ScrollView, StyleSheet } from "react-native";
 import { TypeDetails } from "../components/TypeDetails";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import { ScrollScreen } from "../../../components/screen";
+import { BottomButtons } from "../../../components/buttons/BottomButtons";
 
 export const Type = ({ navigation, route }) => {
   const { isNumistaType, id, numista_id } = route.params;
@@ -67,27 +68,18 @@ export const Type = ({ navigation, route }) => {
 
   if (isSuccess)
     return (
-      <ScrollView
-        contentContainerStyle={styles.view}
-        alwaysBounceVertical={false}
-      >
+      <ScrollScreen>
         <TypeDetails type={type.data} />
-        <PrimaryButton
-          text={"Dodaj do kolekcji"}
-          onPress={handleAddToCollection}
-        />
-        <PrimaryButton
-          text={"Dodaj ofertę innego sprzedawcy"}
-          onPress={handleAddOffer}
-        />
-      </ScrollView>
+        <BottomButtons>
+          <PrimaryButton
+            text={"Dodaj do kolekcji"}
+            onPress={handleAddToCollection}
+          />
+          <PrimaryButton
+            text={"Dodaj ofertę innego sprzedawcy"}
+            onPress={handleAddOffer}
+          />
+        </BottomButtons>
+      </ScrollScreen>
     );
 };
-export default Type;
-
-const styles = StyleSheet.create({
-  view: {
-    padding: 20,
-    gap: 10,
-  },
-});

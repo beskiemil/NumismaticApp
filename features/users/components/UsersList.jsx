@@ -1,12 +1,11 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import Colors from "../../../constants/colors";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import { UserCard } from "./UserCard";
 import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import qs from "qs";
 import { useState } from "react";
-import { Input } from "../../../components/ui/Input";
-import LoadingComponent from "../../../components/ui/LoadingComponent";
+import { Input } from "../../../components/forms/Input";
+import LoadingComponent from "../../../components/LoadingComponent";
 
 export const UsersList = () => {
   const [username, setUsername] = useState("");

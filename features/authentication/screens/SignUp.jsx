@@ -1,7 +1,8 @@
 import { useContext, useLayoutEffect, useState } from "react";
-import { signup } from "../util/auth";
-import Loading from "./Loading";
-import { AuthContent, AuthContext } from "../features/authentication/index";
+import { signup } from "../../../util/auth";
+import Loading from "../../../screens/Loading";
+import { AuthContent, AuthContext } from "../index";
+import { showToast } from "../../../helpers/showToast";
 
 const SignUp = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,14 +17,16 @@ const SignUp = ({ navigation }) => {
   const authContext = useContext(AuthContext);
   const signUpHandler = async ({ username, email, password }) => {
     setIsLoading(true);
-    signup(username, email, password)
+    await signup(username, email, password)
       .then((res) => {
         // go to email confirmation message screen
         setIsLoading(false);
+        showToast({ message: "Zarejestrowano pomyślnie!", type: "success" });
       })
       .catch((err) => {
         setErrorMessage(err.message);
         setIsLoading(false);
+        showToast({ message: err.message, type: "error" });
       });
   };
 

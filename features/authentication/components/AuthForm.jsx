@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
-import ControlledInput from "../../../components/ui/ControlledInput";
+import ControlledInput from "../../../components/forms/ControlledInput";
 import Colors from "../../../constants/colors";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ControlledCheckbox } from "../../../components/ui/ControlledCheckbox";
+import { ControlledCheckbox } from "../../../components/forms/ControlledCheckbox";
 
 export const AuthForm = ({ isLogin, onSubmit }) => {
   const [agreement, setAgreement] = useState(false);

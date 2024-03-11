@@ -1,16 +1,15 @@
-import { ScrollView, StyleSheet } from "react-native";
 import { AddOfferForm } from "../components/AddOfferForm";
 import { AddItemForm } from "../../collection/components/AddItemForm";
 import useAxios from "../../../hooks/useAxios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../authentication";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo } from "react";
 import { ItemCard } from "../../collection";
 import qs from "qs";
 import { createItemFormData } from "../../collection/helpers/createItemFormData";
+import { ScrollScreen } from "../../../components/screen";
 
 export const AddOffer = ({ navigation, route }) => {
-  //const [item, setItem] = useState(route?.params?.item || null);
   const item = useMemo(
     () => route?.params?.entity?.item || null,
     [route?.params?.entity],
@@ -95,20 +94,12 @@ export const AddOffer = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollScreen>
       {!item && type && <AddItemForm type={type} onSubmit={handleAddItem} />}
       {item && <ItemCard item={item} />}
       {item && (
         <AddOfferForm item={item} user={user} onSubmit={handleAddOffer} />
       )}
-    </ScrollView>
+    </ScrollScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    gap: 20,
-    minHeight: "100%",
-  },
-});

@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 
 export const IconButton = ({
   iconFamily,
@@ -26,8 +26,6 @@ export const IconButton = ({
     </Pressable>
   );
 };
-
-export default IconButton;
 
 const styles = StyleSheet.create({
   container: {

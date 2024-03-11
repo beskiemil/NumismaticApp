@@ -1,14 +1,12 @@
 import Colors from "../../../constants/colors";
-import SettingsList from "../../settings/SettingsList";
-import Account from "../../settings/Account";
-import Application from "../../settings/Application";
+import { Account, Application, Settings } from "../../settings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Stack = createNativeStackNavigator();
 const SettingsNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="SettingsList"
+      initialRouteName="SettingsRoot"
       screenOptions={{
         headerStyle: { backgroundColor: Colors.primary500 },
         headerTintColor: "white",
@@ -16,8 +14,8 @@ const SettingsNavigator = () => {
       }}
     >
       <Stack.Screen
-        name="SettingsList"
-        component={SettingsList}
+        name="Settings"
+        component={Settings}
         options={{
           headerShown: false,
         }}

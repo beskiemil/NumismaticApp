@@ -4,8 +4,8 @@ import { AuthContext } from "../../authentication";
 import { NavigationContainer } from "@react-navigation/native";
 import Colors from "../../../constants/colors";
 import Home from "../../../screens/Home";
-import Login from "../../../screens/Login";
-import SignUp from "../../../screens/SignUp";
+import Login from "../../authentication/screens/Login";
+import SignUp from "../../authentication/screens/SignUp";
 import { useContext } from "react";
 import { FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import SettingsNavigator from "./SettingsNavigator";
@@ -99,7 +99,7 @@ const AuthenticatedNavigator = () => (
       }}
     />
     <Tab.Screen
-      name="Settings"
+      name="SettingsRoot"
       component={SettingsNavigator}
       options={{
         title: "Ustawienia",

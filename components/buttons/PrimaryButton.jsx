@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import Colors from "../constants/colors";
+import Colors from "../../constants/colors";
 
 const PrimaryButton = ({ text, style, onPress, color, android_ripple }) => {
   return (

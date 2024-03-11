@@ -1,7 +1,7 @@
-import { StyleSheet, View } from "react-native";
 import { AuthContext } from "../../authentication";
 import { useContext, useLayoutEffect } from "react";
 import { ItemsList } from "../components/ItemsList";
+import { Screen } from "../../../components/screen";
 
 export const Items = ({ navigation, route }) => {
   const { user } = route.params;
@@ -16,15 +16,8 @@ export const Items = ({ navigation, route }) => {
     navigation.navigate("Item", { id: item.id });
   };
   return (
-    <View style={styles.container}>
+    <Screen>
       <ItemsList onItemClick={onItemClick} user={user} />
-    </View>
+    </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-});

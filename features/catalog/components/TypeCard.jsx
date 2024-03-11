@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
 import { CoinImage } from "../../../components/CoinImage";
-import { Label, Row, Value } from "../../../components/ui/PropertyComponents";
+import { Label, Row, Value } from "../../../components/PropertyComponents";
 export const TypeCard = ({ type }) => {
   //Wyświetlenie karty okazu
 

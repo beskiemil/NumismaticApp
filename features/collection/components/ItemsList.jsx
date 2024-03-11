@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import qs from "qs";
 import Loading from "../../../screens/Loading";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import Pagination from "../../../components/ui/Pagination";
+import Pagination from "../../../components/Pagination";
 import Colors from "../../../constants/colors";
 import { ItemCard } from "./ItemCard";
 import { useContext, useState } from "react";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { useAddItemPopup } from "../hooks/useAddItemPopup";
 import { AuthContext } from "../../authentication";
 
@@ -69,7 +69,6 @@ export const ItemsList = ({ onItemClick, user }) => {
     <>
       {items && items.data.length > 0 && (
         <FlatList
-          contentContainerStyle={styles.contentContainer}
           data={items.data}
           renderItem={({ item, index }) => (
             <Pressable onPress={() => onItemClick(item)}>
@@ -105,7 +104,6 @@ export const ItemsList = ({ onItemClick, user }) => {
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {},
   paginationContainer: {
     alignItems: "center",
   },

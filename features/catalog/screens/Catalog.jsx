@@ -14,7 +14,6 @@ export const Catalog = ({ navigation }) => {
       style={styles.container}
       keyboardShouldPersistTaps={"handled"}
       keyboardDismissMode={"on-drag"}
-      bounces={false}
     >
       <TypeSearchForm onSubmit={handleSearch} />
     </View>

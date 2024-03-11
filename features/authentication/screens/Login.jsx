@@ -1,7 +1,8 @@
-import { AuthContent, AuthContext } from "../features/authentication/";
-import { login } from "../util/auth";
-import Loading from "./Loading";
+import { AuthContent, AuthContext } from "../index";
+import { login } from "../../../util/auth";
+import Loading from "../../../screens/Loading";
 import { useContext, useLayoutEffect, useState } from "react";
+import { showToast } from "../../../helpers/showToast";
 
 const Login = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,13 +20,14 @@ const Login = ({ navigation }) => {
     setErrorMessage(null);
     login(identifier, password)
       .then((res) => {
-        console.log(`Authenticating: ${res.data.user}`);
         authContext.authenticate(res.data.jwt, res.data.user);
         setIsLoading(false);
+        showToast({ message: "Zalogowano pomyślnie!", type: "success" });
       })
       .catch((err) => {
         setErrorMessage(err.message);
         setIsLoading(false);
+        showToast({ message: "Błąd logowania", type: "error" });
       });
   };
 

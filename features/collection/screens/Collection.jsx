@@ -1,15 +1,16 @@
-import { StyleSheet, View } from "react-native";
-import PrimaryButton from "../../../components/PrimaryButton";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
 import { AuthContext } from "../../authentication";
 import { useContext } from "react";
 import { useAddItemPopup } from "../hooks/useAddItemPopup";
+import { Screen } from "../../../components/screen";
+import { StyleSheet } from "react-native";
 
 export const Collection = ({ navigation }) => {
   const { user } = useContext(AuthContext);
 
   const handleAddItemPress = useAddItemPopup();
   return (
-    <View style={styles.container}>
+    <Screen style={styles.screen}>
       <PrimaryButton
         text={"Moja kolekcja"}
         onPress={() => navigation.navigate("Items", { user })}
@@ -22,15 +23,12 @@ export const Collection = ({ navigation }) => {
         text={"Dodaj przedmiot"}
         onPress={() => handleAddItemPress()}
       />
-    </View>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    gap: 20,
+  screen: {
     justifyContent: "center",
   },
 });

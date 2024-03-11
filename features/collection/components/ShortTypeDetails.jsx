@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
-import { Label, Row, Value } from "../../../components/ui/PropertyComponents";
+import { Label, Row, Value } from "../../../components/PropertyComponents";
 
 export const ShortTypeDetails = ({ type }) => {
   return (

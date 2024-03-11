@@ -4,7 +4,7 @@ import qs from "qs";
 import Loading from "../../../screens/Loading";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
-import Pagination from "../../../components/ui/Pagination";
+import Pagination from "../../../components/Pagination";
 import Colors from "../../../constants/colors";
 import { OfferCard } from "./OfferCard";
 
@@ -71,25 +71,22 @@ export const OffersList = ({ user }) => {
             ]}
           >
             <OfferCard offer={offer} />
-            {/*<Text>{offer.id}</Text>*/}
           </View>
         )}
         keyExtractor={(offer) => offer.id}
         ListHeaderComponent={paginationComponent}
         ListFooterComponent={paginationComponent}
       />
-      {!offers ||
-        (offers.data.length === 0 && (
-          <View style={styles.notFoundContainer}>
-            <Text style={styles.notFoundText}>Nie znaleziono przedmiotów.</Text>
-          </View>
-        ))}
+      {offers?.data?.length === 0 && (
+        <View style={styles.notFoundContainer}>
+          <Text style={styles.notFoundText}>Nie znaleziono przedmiotów.</Text>
+        </View>
+      )}
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {},
   paginationContainer: {
     alignItems: "center",
   },
