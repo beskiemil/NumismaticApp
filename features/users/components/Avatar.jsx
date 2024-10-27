@@ -1,9 +1,8 @@
 import { Image, StyleSheet, View } from "react-native";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
 
-export const Avatar = ({ src, username }) => {
+export const Avatar = ({ src, username, size }) => {
   return (
-    <View style={styles.shadow}>
+    <View style={[styles.shadow, size === "sm" && styles.shadowSm]}>
       <Image
         source={{ uri: src || `https://ui-avatars.com/api/?name=${username}` }}
         style={styles.avatar}
@@ -18,6 +17,11 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 1000,
   },
+  shadowSm: {
+    width: 30,
+    height: 30,
+  },
+  // eslint-disable-next-line react-native/no-color-literals
   shadow: {
     width: 70,
     height: 70,

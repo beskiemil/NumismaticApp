@@ -1,47 +1,51 @@
 import { StyleSheet, Text, View } from "react-native";
 import Colors from "../../../constants/colors";
-import { Label, Row, Value } from "../../../components/PropertyComponents";
+import {
+  PropertyLabel,
+  PropertyRow,
+  PropertyValue,
+} from "../../../components/PropertyComponents";
 
 export const ShortTypeDetails = ({ type }) => {
   return (
     <View style={styles.container}>
-      <Row>
+      <PropertyRow>
         <Text style={styles.title}>{type.title}</Text>
-      </Row>
+      </PropertyRow>
       {type.isNumistaType ? (
-        <Row>
-          <Label>Numista ID: </Label>
-          <Value>N# {type.id}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>Numista ID: </PropertyLabel>
+          <PropertyValue>N# {type.id}</PropertyValue>
+        </PropertyRow>
       ) : (
-        <Row>
-          <Label>ID: </Label>
-          <Value>#{type.id}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>ID: </PropertyLabel>
+          <PropertyValue>#{type.id}</PropertyValue>
+        </PropertyRow>
       )}
-      <Row>
-        <Label>Kategoria: </Label>
-        <Value>{type?.category}</Value>
-      </Row>
+      <PropertyRow>
+        <PropertyLabel>Kategoria: </PropertyLabel>
+        <PropertyValue>{type?.category}</PropertyValue>
+      </PropertyRow>
       {type.issuer && (
-        <Row>
-          <Label>Emitent: </Label>
-          <Value>{type.issuer?.name}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>Emitent: </PropertyLabel>
+          <PropertyValue>{type.issuer?.name}</PropertyValue>
+        </PropertyRow>
       )}
       {type.min_year && (
-        <Row>
-          <Label>Lata: </Label>
-          <Value>
+        <PropertyRow>
+          <PropertyLabel>Lata: </PropertyLabel>
+          <PropertyValue>
             {type?.min_year} - {type?.max_year}
-          </Value>
-        </Row>
+          </PropertyValue>
+        </PropertyRow>
       )}
       {type?.value?.currency?.full_name && (
-        <Row>
-          <Label>Waluta: </Label>
-          <Value>{type?.value?.currency?.full_name}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>Waluta: </PropertyLabel>
+          <PropertyValue>{type?.value?.currency?.full_name}</PropertyValue>
+        </PropertyRow>
       )}
     </View>
   );

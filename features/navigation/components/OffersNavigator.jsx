@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Colors from "../../../constants/colors";
-import { OffersRoot, AddOffer, Offers } from "../../offers";
+import { OffersRoot, AddOffer, Offers, Offer } from "../../offers";
 
 const Stack = createNativeStackNavigator();
 export const OffersNavigator = () => {
@@ -25,6 +25,13 @@ export const OffersNavigator = () => {
         component={Offers}
         options={{
           title: "Oferty",
+        }}
+      />
+      <Stack.Screen
+        name="Offer"
+        component={Offer}
+        options={{
+          title: "Oferta",
         }}
       />
       <Stack.Screen

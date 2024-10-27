@@ -3,29 +3,28 @@ import Colors from "../constants/colors";
 
 export const CoinImage = ({ url, copyright, copyrightUrl }) => {
   return (
-    <>
-      <View style={styles.imgContainer}>
-        <Image source={{ uri: url }} style={styles.img} />
-      </View>
+    <View style={styles.wrapper}>
+      <Image source={{ uri: url }} style={styles.img} resizeMode={"contain"} />
+
       {copyright && (
         <Text style={styles.pictureCopyright}>
           Copyright &copy; {copyright}
         </Text>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  imgContainer: {
+  wrapper: {
+    flex: 1,
+  },
+  img: {
+    aspectRatio: 1,
     borderWidth: 2,
     borderColor: Colors.primary500,
     borderRadius: 5,
     overflow: "hidden",
-  },
-  img: {
-    width: "100%",
-    aspectRatio: 1,
   },
   pictureCopyright: {
     fontSize: 10,

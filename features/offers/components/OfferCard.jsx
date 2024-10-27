@@ -1,12 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CoinImage } from "../../../components/CoinImage";
-import { Label, Row, Value } from "../../../components/PropertyComponents";
+import {
+  PropertyLabel,
+  PropertyRow,
+  PropertyValue,
+  PropertyTitle,
+  TitleRow,
+  UserRow,
+} from "../../../components/PropertyComponents";
 import Colors from "../../../constants/colors";
 import { Category } from "../../../constants/categories";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
 import { Badge } from "../../../components/buttons/Badge";
 import { useNavigation } from "@react-navigation/native";
 import { traderTypes } from "../constants/traderTypes";
+import { Avatar } from "../../users";
 
 export const OfferCard = ({ offer }) => {
   const navigation = useNavigation();
@@ -19,71 +27,85 @@ export const OfferCard = ({ offer }) => {
       ? coinGrades.find((g) => g.value === item.grade)
       : banknoteGrades.find((g) => g.value === item.grade);
 
+  const handleDetailsPress = () => {
+    navigation.navigate("Offer", { id: offer.id });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.propertiesContainer}>
-        <Row>
-          <Text style={styles.title}>{type.title}</Text>
-        </Row>
+        <TitleRow>
+          <PropertyTitle>{type.title}</PropertyTitle>
+        </TitleRow>
+        <UserRow>
+          <PropertyLabel>Sprzedawca: </PropertyLabel>
+          {offer.trader_type === traderTypes.USER ? (
+            // eslint-disable-next-line react-native/no-inline-styles
+            <View style={{ flex: 3, flexDirection: "row" }}>
+              <Avatar
+                username={item?.user?.username}
+                src={item?.user?.avatar?.formats?.thumbnail?.url}
+                size={"sm"}
+              />
+              <PropertyValue>{offer?.item?.user?.username}</PropertyValue>
+            </View>
+          ) : (
+            <PropertyValue>{offer.trader}</PropertyValue>
+          )}
+        </UserRow>
         {type.isNumistaType ? (
-          <Row>
-            <Label>Numista ID: </Label>
-            <Value>N# {type.id}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>Numista ID: </PropertyLabel>
+            <PropertyValue>N# {type.id}</PropertyValue>
+          </PropertyRow>
         ) : (
-          <Row>
-            <Label>ID: </Label>
-            <Value>#{type.id}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>ID: </PropertyLabel>
+            <PropertyValue>#{type.id}</PropertyValue>
+          </PropertyRow>
         )}
-        <Row>
-          <Label>Kategoria: </Label>
-          <Value>{type?.category}</Value>
-        </Row>
+        {/*<PropertyRow>*/}
+        {/*  <PropertyLabel>Kategoria: </PropertyLabel>*/}
+        {/*  <PropertyValue>{type?.category}</PropertyValue>*/}
+        {/*</PropertyRow>*/}
         {type.issuer && (
-          <Row>
-            <Label>Emitent: </Label>
-            <Value>{type.issuer?.name}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>Emitent: </PropertyLabel>
+            <PropertyValue>{type.issuer?.name}</PropertyValue>
+          </PropertyRow>
         )}
         {type.min_year && (
-          <Row>
-            <Label>Lata: </Label>
-            <Value>
+          <PropertyRow>
+            <PropertyLabel>Lata: </PropertyLabel>
+            <PropertyValue>
               {type?.min_year} - {type?.max_year}
-            </Value>
-          </Row>
+            </PropertyValue>
+          </PropertyRow>
         )}
-        {type?.value?.currency?.full_name && (
-          <Row>
-            <Label>Waluta: </Label>
-            <Value>{type?.value?.currency?.full_name}</Value>
-          </Row>
-        )}
-        <Row>
-          <Label>Stan: </Label>
-          <Value>{grade.label}</Value>
-        </Row>
-        <Row>
-          <Label>Sprzedawca: </Label>
-          <Value>
-            {offer.trader_type === traderTypes.USER
-              ? offer?.item?.user?.username
-              : offer.trader}
-          </Value>
-        </Row>
-        <Row>
-          <Label>Opis oferty: </Label>
-          <Value>{offer.description}</Value>
-        </Row>
-        <Row>
-          <Label>Cena: </Label>
-          <Value>{offer.price} zł</Value>
-        </Row>
+        {/*{type?.value?.currency?.full_name && (*/}
+        {/*  <PropertyRow>*/}
+        {/*    <PropertyLabel>Waluta: </PropertyLabel>*/}
+        {/*    <PropertyValue>{type?.value?.currency?.full_name}</PropertyValue>*/}
+        {/*  </PropertyRow>*/}
+        {/*)}*/}
+        <PropertyRow>
+          <PropertyLabel>Stan: </PropertyLabel>
+          <PropertyValue>{grade.label}</PropertyValue>
+        </PropertyRow>
+        {/*<PropertyRow>*/}
+        {/*  <PropertyLabel>Opis oferty: </PropertyLabel>*/}
+        {/*  <PropertyValue>{offer.description}</PropertyValue>*/}
+        {/*</PropertyRow>*/}
+        <PropertyRow>
+          <PropertyLabel>Cena: </PropertyLabel>
+          <PropertyValue>{offer.price} zł</PropertyValue>
+        </PropertyRow>
 
-        <Row>
-          <Badge color={Colors.primary300}>Szczegóły</Badge>
-        </Row>
+        <PropertyRow>
+          <Badge color={Colors.primary300} onPress={handleDetailsPress}>
+            Szczegóły
+          </Badge>
+        </PropertyRow>
       </View>
 
       <View style={styles.imagesContainer}>
@@ -101,11 +123,7 @@ const styles = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 10,
     paddingVertical: 15,
-  },
-  title: {
-    fontSize: 21,
-    fontWeight: "400",
-    color: Colors.primary500,
+    alignItems: "center",
   },
   propertiesContainer: {
     flex: 5,
@@ -115,6 +133,5 @@ const styles = StyleSheet.create({
   imagesContainer: {
     flex: 2,
     gap: 5,
-    justifyContent: "center",
   },
 });

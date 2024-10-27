@@ -11,7 +11,6 @@ import { Screen } from "../../../components/screen";
 
 export const OffersRoot = ({ navigation }) => {
   const { user } = useContext(AuthContext);
-  console.log(navigation.getState());
   return (
     <Screen style={styles.container}>
       <InfoBanner>

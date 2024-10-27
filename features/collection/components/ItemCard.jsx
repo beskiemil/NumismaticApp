@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import { CoinImage } from "../../../components/CoinImage";
-import { Label, Row, Value } from "../../../components/PropertyComponents";
+import {
+  PropertyLabel,
+  PropertyRow,
+  PropertyValue,
+} from "../../../components/PropertyComponents";
 import Colors from "../../../constants/colors";
 import { Category } from "../../../constants/categories";
 import { banknoteGrades, coinGrades } from "../../../constants/grades";
@@ -27,57 +31,57 @@ export const ItemCard = ({ item, showAddOfferBadge }) => {
   return (
     <View style={styles.container}>
       <View style={styles.propertiesContainer}>
-        <Row>
+        <PropertyRow>
           <Text style={styles.title}>{type.title}</Text>
-        </Row>
+        </PropertyRow>
         {type.isNumistaType ? (
-          <Row>
-            <Label>Numista ID: </Label>
-            <Value>N# {type.id}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>Numista ID: </PropertyLabel>
+            <PropertyValue>N# {type.id}</PropertyValue>
+          </PropertyRow>
         ) : (
-          <Row>
-            <Label>ID: </Label>
-            <Value>#{type.id}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>ID: </PropertyLabel>
+            <PropertyValue>#{type.id}</PropertyValue>
+          </PropertyRow>
         )}
-        <Row>
-          <Label>Kategoria: </Label>
-          <Value>{type?.category}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>Kategoria: </PropertyLabel>
+          <PropertyValue>{type?.category}</PropertyValue>
+        </PropertyRow>
         {type.issuer && (
-          <Row>
-            <Label>Emitent: </Label>
-            <Value>{type.issuer?.name}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>Emitent: </PropertyLabel>
+            <PropertyValue>{type.issuer?.name}</PropertyValue>
+          </PropertyRow>
         )}
         {type.min_year && (
-          <Row>
-            <Label>Lata: </Label>
-            <Value>
+          <PropertyRow>
+            <PropertyLabel>Lata: </PropertyLabel>
+            <PropertyValue>
               {type?.min_year} - {type?.max_year}
-            </Value>
-          </Row>
+            </PropertyValue>
+          </PropertyRow>
         )}
         {type?.value?.currency?.full_name && (
-          <Row>
-            <Label>Waluta: </Label>
-            <Value>{type?.value?.currency?.full_name}</Value>
-          </Row>
+          <PropertyRow>
+            <PropertyLabel>Waluta: </PropertyLabel>
+            <PropertyValue>{type?.value?.currency?.full_name}</PropertyValue>
+          </PropertyRow>
         )}
-        <Row>
-          <Label>Stan: </Label>
-          <Value>{grade.label}</Value>
-        </Row>
+        <PropertyRow>
+          <PropertyLabel>Stan: </PropertyLabel>
+          <PropertyValue>{grade.label}</PropertyValue>
+        </PropertyRow>
 
-        <Row>
+        <PropertyRow>
           <Badge color={Colors.primary300}>Szczegóły</Badge>
           {showAddOfferBadge && (
             <Badge color={Colors.primary300} onPress={addOffer}>
               Dodaj ofertę
             </Badge>
           )}
-        </Row>
+        </PropertyRow>
       </View>
 
       <View style={styles.imagesContainer}>

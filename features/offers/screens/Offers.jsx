@@ -1,4 +1,3 @@
-import { View, StyleSheet } from "react-native";
 import { OffersList } from "../components/OffersList";
 import { Screen } from "../../../components/screen";
 
